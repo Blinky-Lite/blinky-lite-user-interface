@@ -1,0 +1,363 @@
+[
+    {
+        "id": "a7b9d689.b8a5e8",
+        "type": "tab",
+        "label": "Flow1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6ad7c930.1a06b8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Chill Detector",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a77ab212.bfa86",
+        "type": "mongodb",
+        "z": "",
+        "hostname": "blinky-lite-08.local",
+        "port": "27017",
+        "db": "blinky-lite",
+        "name": "blinky-lite-08"
+    },
+    {
+        "id": "39dedc79.9647d4",
+        "type": "socketio-config",
+        "z": "",
+        "port": "11881",
+        "sendClient": "true",
+        "path": "/socket.io",
+        "bindToNode": true
+    },
+    {
+        "id": "a1d149c8.df9b88",
+        "type": "http in",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "url": "/deviceViewer",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "f408ee76.4597e"
+            ]
+        ]
+    },
+    {
+        "id": "bb0d6c04.0770f",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "HTML",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Vibration Spectrum Detector</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <script src=\"/scripts/jquery.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.style}}}</style>\n    <script>{{{payload.script}}}</script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.infobar}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "output": "str",
+        "x": 930,
+        "y": 320,
+        "wires": [
+            [
+                "6b7d5262.946b9c"
+            ]
+        ]
+    },
+    {
+        "id": "6b7d5262.946b9c",
+        "type": "http response",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1070,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f408ee76.4597e",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "CSS",
+        "field": "payload.style",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n.linktext {\n  color: var(--container-title-color);\n  text-decoration: underline;\n}\n.linkicon {\n  padding: 20px;\n  color: var(--container-background-color);\n}\n\nimg {\n  object-fit: contain;\n}\n.col {\n  padding-bottom: 20px;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n}\n.banner\n{\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.featurette-heading\n{\n  color:var(--container-text-color);\n}\n.card\n{\n  background-color: var(--container-background-color);\n  text-align: center;\n  padding: 10px;\n}\n.card-body\n{\n  color: var(--sub-container-text-color);\n  background-color: var(--sub-container-background-color);\n}\n.card-button\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n  background-color: var(--container-background-color);\n}\n.card-title\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n}\n.card-major-bullet\n{\n  text-align: left;\n}\n.card1-minor-bullet\n{\n  text-align: left;\n}\n.card-minor-minor-bullet {\n\tfont-size: : small;\n  font-style:italic;\n}\n\n.card-text\n{\n  text-align: left;\n}\n.scrolling-wrapper {\n  width: 100%;left\n  display: inline-block;\n  overflow-x: scroll;\n  overflow-y: hidden;\n  white-space: nowrap;\n}\n.footer {\n/*   position: fixed; */\n   left: 0;\n   bottom: 0;\n   width: 100%;\n   color:var(--container-background-color);\n   background-color: var(--background-color);\n   text-align: center;\n}\n.img-max {\n  width: 99%;\n}\n.bot-pad\n{\n  padding-bottom: 20px;\n}\n.span-left-justify\n{\n  float:left;\n}\n.right-justify\n{\n  text-align: right;\n}\n.center-justify\n{\n  text-align: center;\n}\n.date\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n}\n.spectrogram\n{\n  border-style:solid;\n  border-color: var(--container-title-color);\n}",
+        "output": "str",
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "e2bc60bf.5c5a8"
+            ]
+        ]
+    },
+    {
+        "id": "e2bc60bf.5c5a8",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "JavaScript",
+        "field": "payload.script",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "$( document ).ready(function()\n{\n  console.log(window.location.href);\n  socket = io.connect(window.location.href);\n  socket.on('connect', function(data) \n  {\n      socket.emit('join', 'Socket Connection from index page established.');\n      console.log('booger');\n  });\n\n});\n",
+        "output": "str",
+        "x": 490,
+        "y": 320,
+        "wires": [
+            [
+                "d1b3cdc7.d6f86"
+            ]
+        ]
+    },
+    {
+        "id": "d1b3cdc7.d6f86",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "NavBar",
+        "field": "payload.navbar",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div class=\"alert alert-success banner\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Device Viewer</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo-Text.png\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 640,
+        "y": 320,
+        "wires": [
+            [
+                "8d69cd3e.1e335"
+            ]
+        ]
+    },
+    {
+        "id": "8d69cd3e.1e335",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Info Bar",
+        "field": "payload.infobar",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <div class=\"row\"> \n        <div class=\"col-md-2\">\n            <button class=\"btn jumbotron-button\" id=\"freezeButton\" type=\"button\" onclick=\"freezeRun()\"></button>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">MaxPlot</span>\n        </div>\n        <div class=\"col-md-2\">\n            <input class=\"form-control center-justify\" id=\"maxplot\" type=\"text\" value=\"0\"/>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">MaxFreq </span>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\" id=\"maxMode\"></span>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-2\"></div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">MinPlot</span>\n        </div>\n        <div class=\"col-md-2\">\n            <input class=\"form-control center-justify\" id=\"minplot\" type=\"text\" value=\"0\"/>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">Amplitude </span>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\" id=\"maxModeAmplitude\"></span>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-2\"></div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">PlotSlices</span>\n        </div>\n        <div class=\"col-md-2\">\n            <input class=\"form-control center-justify\" id=\"plotslices\" type=\"text\" value=\"0\"/>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\">DCLevel</span>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\" id=\"dcLevel\"></span>\n        </div>\n    </div>\n    <div class=\"row\"> \n        <div class=\"col-md-2\">\n            <button class=\"btn jumbotron-button\" id=\"alarmButton\" type=\"button\" onclick=\"toggleAlarm()\"></button>\n        </div>\n        \n        <div class=\"col-md-2\">\n            <span class=\"date\">AlarmLevel</span>\n        </div>\n        <div class=\"col-md-2\">\n            <input class=\"form-control center-justify\" id=\"alarmThreshold\" type=\"text\" value=\"0\"/>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\"></span>\n        </div>\n        <div class=\"col-md-2\">\n            <span class=\"date\"></span>\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 780,
+        "y": 320,
+        "wires": [
+            [
+                "bb0d6c04.0770f"
+            ]
+        ]
+    },
+    {
+        "id": "610b2b62.12ad84",
+        "type": "inject",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "topic": "test",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "77873977.2a8f78"
+            ]
+        ]
+    },
+    {
+        "id": "72245290.732fbc",
+        "type": "mongodb in",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Find in device db",
+        "collection": "devices",
+        "operation": "find",
+        "x": 510,
+        "y": 200,
+        "wires": [
+            [
+                "8d43330b.62a74"
+            ]
+        ]
+    },
+    {
+        "id": "77873977.2a8f78",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "Find sys01",
+        "func": "msg.payload = {};\nmsg.projection = { sys01: 1, status: 1, _id: 0 }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "72245290.732fbc"
+            ]
+        ]
+    },
+    {
+        "id": "8d43330b.62a74",
+        "type": "function",
+        "z": "a7b9d689.b8a5e8",
+        "name": "parse sys01 list",
+        "func": "var sys01Array = [];\nvar sysCounter = 0;\nsys01Array[sysCounter] =  msg.payload[0].sys01;\n++sysCounter;\nfor (var idevice = 1; idevice < msg.payload.length; ++idevice)\n{\n    var ideviceFound = false;\n    for (var isys = 0; isys < sysCounter; ++isys)\n    {\n        if (msg.payload[idevice].sys01 == sys01Array[isys])\n        {\n            ideviceFound = true;\n        }\n    }\n    if (!ideviceFound)\n    {\n       sys01Array[sysCounter] =  msg.payload[idevice].sys01;\n        ++sysCounter;\n    }\n}\nreturn {topic:'sys01',payload:sys01Array};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "e75b1823.4a4a28"
+            ]
+        ]
+    },
+    {
+        "id": "e75b1823.4a4a28",
+        "type": "debug",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "90ebe033.17c6d",
+        "type": "debug",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 350,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a63d8a66.202da8",
+        "type": "socketio-in",
+        "z": "a7b9d689.b8a5e8",
+        "name": "",
+        "server": "39dedc79.9647d4",
+        "rules": [
+            {
+                "v": "join"
+            },
+            {
+                "v": "connect"
+            }
+        ],
+        "x": 140,
+        "y": 540,
+        "wires": [
+            [
+                "90ebe033.17c6d"
+            ]
+        ]
+    }
+]
