@@ -21,7 +21,6 @@
   "homepage": "",
   "dependencies": {
     "node-red": "^0.19.5",
-    "node-red-contrib-socketio": "^1.0.6",
     "node-red-dashboard": "^2.13.0",
     "node-red-node-mongodb": "0.0.14"
   }
