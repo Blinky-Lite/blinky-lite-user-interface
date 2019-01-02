@@ -114,20 +114,20 @@
         "id": "3c1c519e.83272e",
         "type": "websocket-listener",
         "z": "",
-        "path": "/deviceViewer/websocket",
+        "path": "/scalarDeviceViewer/websocket",
         "wholemsg": "false"
     },
     {
         "id": "a1d149c8.df9b88",
         "type": "http in",
         "z": "a7b9d689.b8a5e8",
-        "name": "",
-        "url": "/deviceViewer",
+        "name": "HTTP GET",
+        "url": "/scalarDeviceViewer",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 130,
-        "y": 320,
+        "x": 80,
+        "y": 40,
         "wires": [
             [
                 "f408ee76.4597e"
@@ -143,10 +143,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Device Viewer</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <script src=\"/scripts/jquery.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.style}}}</style>\n    <script>{{{payload.script}}}</script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Device Viewer</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <script src=\"/scripts/jquery.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <style>{{{payload.style}}}</style>\n    <script>{{{payload.script}}}</script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
-        "x": 930,
-        "y": 320,
+        "x": 770,
+        "y": 40,
         "wires": [
             [
                 "6b7d5262.946b9c"
@@ -160,8 +160,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1070,
-        "y": 320,
+        "x": 890,
+        "y": 40,
         "wires": []
     },
     {
@@ -175,8 +175,8 @@
         "syntax": "mustache",
         "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n.linktext {\n  color: var(--container-title-color);\n  text-decoration: underline;\n}\n.linkicon {\n  padding: 20px;\n  color: var(--container-background-color);\n}\n\nimg {\n  object-fit: contain;\n}\n.col {\n  padding-bottom: 20px;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n}\n.banner\n{\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.featurette-heading\n{\n  color:var(--container-text-color);\n}\n.card\n{\n  background-color: var(--container-background-color);\n  text-align: center;\n  padding: 10px;\n}\n.card-body\n{\n  color: var(--sub-container-text-color);\n  background-color: var(--sub-container-background-color);\n}\n.card-button\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n  background-color: var(--container-background-color);\n}\n.card-title\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n}\n.card-major-bullet\n{\n  text-align: left;\n}\n.card1-minor-bullet\n{\n  text-align: left;\n}\n.card-minor-minor-bullet {\n\tfont-size: : small;\n  font-style:italic;\n}\n\n.card-text\n{\n  text-align: left;\n}\n.scrolling-wrapper {\n  width: 100%;left\n  display: inline-block;\n  overflow-x: scroll;\n  overflow-y: hidden;\n  white-space: nowrap;\n}\n.footer {\n/*   position: fixed; */\n   left: 0;\n   bottom: 0;\n   width: 100%;\n   color:var(--container-background-color);\n   background-color: var(--background-color);\n   text-align: center;\n}\n.img-max {\n  width: 99%;\n}\n.bot-pad\n{\n  padding-bottom: 20px;\n}\n.span-left-justify\n{\n  float:left;\n}\n.right-justify\n{\n  text-align: right;\n}\n.center-justify\n{\n  text-align: center;\n}\n.date\n{\n  color: var(--container-title-color);\n  font-weight: bold;\n}\n.spectrogram\n{\n  border-style:solid;\n  border-color: var(--container-title-color);\n}",
         "output": "str",
-        "x": 310,
-        "y": 320,
+        "x": 210,
+        "y": 40,
         "wires": [
             [
                 "e2bc60bf.5c5a8"
@@ -194,8 +194,8 @@
         "syntax": "mustache",
         "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 1;\nvar numSys = sysName.length;\nvar getDevValueTimer = [];\nvar values = [];\n\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        getDevValueTimer = setInterval(getDevValue,1000);\n    }\n});\nfunction wsConnectC() \n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event) \n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic) \n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                default:\n                // code block\n            }        \n        }\n        \n    };\n    ws.onopen = function() \n    {   \n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function() \n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild) \n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg = \n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n    }\n     \n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (sysSelect[idev][numSys - 1].selectedIndex >= 0)\n        {\n            if (sysSelect[idev][numSys - 1].value != 'notSelected')\n            {\n                var newMsg = \n                    {\n                        topic           : 'getDevValue',\n                        payload         : {},\n                        userID          : userID,\n                        plotDevice      : idev,\n                    };\n                for (var isys = 0; isys < numSys; ++isys)\n                {\n                    newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n                }\n                ws.send(JSON.stringify(newMsg));\n            }\n                 \n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n    }\n}",
         "output": "str",
-        "x": 470,
-        "y": 320,
+        "x": 350,
+        "y": 40,
         "wires": [
             [
                 "d1b3cdc7.d6f86"
@@ -211,10 +211,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<div class=\"alert alert-success banner\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Device Viewer</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo-Text.png\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "template": "<div class=\"alert alert-success banner\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Device Viewer</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo-Text.png\" height=\"50px\"/></div>\n  </div>\n</div>\n",
         "output": "str",
-        "x": 640,
-        "y": 320,
+        "x": 500,
+        "y": 40,
         "wires": [
             [
                 "f7771b1.740afe8"
@@ -225,11 +225,11 @@
         "id": "1c59d82a.896018",
         "type": "websocket in",
         "z": "a7b9d689.b8a5e8",
-        "name": "",
+        "name": "Socket In",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 140,
-        "y": 560,
+        "x": 80,
+        "y": 160,
         "wires": [
             [
                 "5660e69.e917918"
@@ -240,11 +240,11 @@
         "id": "aa9750ce.f38ed",
         "type": "websocket out",
         "z": "a7b9d689.b8a5e8",
-        "name": "",
+        "name": "Socket Out",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 1310,
-        "y": 560,
+        "x": 1150,
+        "y": 160,
         "wires": []
     },
     {
@@ -255,8 +255,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 350,
-        "y": 560,
+        "x": 210,
+        "y": 160,
         "wires": [
             [
                 "36df735b.77b3dc"
@@ -285,8 +285,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 490,
-        "y": 560,
+        "x": 330,
+        "y": 160,
         "wires": [
             [
                 "27f42edd.fab892"
@@ -304,8 +304,8 @@
         "name": "Find in device db",
         "collection": "devices",
         "operation": "find",
-        "x": 850,
-        "y": 560,
+        "x": 650,
+        "y": 160,
         "wires": [
             [
                 "e285da1.6e02e28"
@@ -320,8 +320,8 @@
         "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 650,
-        "y": 560,
+        "x": 470,
+        "y": 140,
         "wires": [
             [
                 "6e4a6efd.c2022"
@@ -339,27 +339,13 @@
         "syntax": "mustache",
         "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"10%\"><span>Device</span></td>\n            <td width=\"10%\"><span>sys01</span></td>\n            <td width=\"10%\"><span>sys02</span></td>\n            <td width=\"10%\"><span>sys03</span></td>\n            <td width=\"10%\"><span>sys04</span></td>\n            <td width=\"10%\"><span>device</span></td>\n            <td width=\"10%\"><span>attr</span></td>\n            <td width=\"10%\"><span>prop</span></td>\n            <td width=\"10%\"><span>value</span></td>\n            <td width=\"10%\"><span>mult</span></td>\n            <td width=\"10%\"><span>plot</span></td>\n        </tr>\n        <tr>\n            <td><span>1</span></td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td><span id=\"sysSelectValue_0\">value</span></td>\n            <td><span>mult</span></td>\n            <td><span>plot</span></td>\n        </tr>\n    </table>\n</div>\n",
         "output": "str",
-        "x": 800,
-        "y": 320,
+        "x": 640,
+        "y": 40,
         "wires": [
             [
                 "bb0d6c04.0770f"
             ]
         ]
-    },
-    {
-        "id": "c2b4081e.3d7638",
-        "type": "debug",
-        "z": "a7b9d689.b8a5e8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 1330,
-        "y": 720,
-        "wires": []
     },
     {
         "id": "fa44db0f.a97ee8",
@@ -369,8 +355,8 @@
         "func": "var sysArray = [];\nvar sysCounter = 0;\nsysArray[sysCounter] =  msg.payload[0][msg.system];\n++sysCounter;\nfor (var idevice = 1; idevice < msg.payload.length; ++idevice)\n{\n    var ideviceFound = false;\n    for (var isys = 0; isys < sysCounter; ++isys)\n    {\n        if (msg.payload[idevice][msg.system] == sysArray[isys])\n        {\n            ideviceFound = true;\n        }\n    }\n    if (!ideviceFound)\n    {\n       sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n        ++sysCounter;\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1090,
-        "y": 440,
+        "x": 970,
+        "y": 140,
         "wires": [
             [
                 "aa9750ce.f38ed"
@@ -385,8 +371,8 @@
         "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 650,
-        "y": 620,
+        "x": 470,
+        "y": 180,
         "wires": [
             [
                 "6e4a6efd.c2022"
@@ -415,8 +401,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1020,
-        "y": 560,
+        "x": 810,
+        "y": 160,
         "wires": [
             [
                 "fa44db0f.a97ee8"
@@ -434,8 +420,8 @@
         "func": "return {\n    topic:'putDevValue',\n    payload:{\n        topic           : 'putDevValue',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1130,
-        "y": 640,
+        "x": 970,
+        "y": 180,
         "wires": [
             [
                 "aa9750ce.f38ed"
