@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo su - pi -c "/usr/bin/screen -S sDevViewr -d -m /home/pi/scalarDeviceViewer/run-blinky-lite.sh"
+sudo su - blinky-lite -c "/usr/bin/screen -S sDevViewr -d -m /home/blinky-lite/scalarDeviceViewer/run-blinky-lite.sh"
 
