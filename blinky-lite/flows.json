@@ -114,7 +114,7 @@
         "id": "3c1c519e.83272e",
         "type": "websocket-listener",
         "z": "",
-        "path": "/scalarDeviceViewer/websocket",
+        "path": "/scalarDeviceArchiver/websocket",
         "wholemsg": "false"
     },
     {
@@ -122,7 +122,7 @@
         "type": "http in",
         "z": "a7b9d689.b8a5e8",
         "name": "HTTP GET",
-        "url": "/scalarDeviceViewer",
+        "url": "/scalarDeviceArchiver",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",

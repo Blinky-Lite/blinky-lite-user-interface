@@ -1,6 +1,6 @@
 #!/bin/bash
 sleep 5
-cd /home/blinky-lite/scalarDeviceViewer/blinky-lite
+cd /home/blinky-lite/scalarDeviceArchiver/blinky-lite
 source runNodeRed.sh
 
 
