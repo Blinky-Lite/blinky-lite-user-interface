@@ -2,7 +2,7 @@
     {
         "id": "a7b9d689.b8a5e8",
         "type": "tab",
-        "label": "Flow1",
+        "label": "scalarDeviceArchivePlotter",
         "disabled": false,
         "info": ""
     },
@@ -143,7 +143,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Device Archiver</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <link href=\"/scripts/visDist/vis-timeline-graph2d.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n    <style>\n        {{{payload.style}}}\n    </style>\n    <script>\n        {{{payload.script}}}\n    </script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Device Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <link href=\"/scripts/visDist/vis-timeline-graph2d.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n    <style>\n        {{{payload.style}}}\n    </style>\n    <script>\n        {{{payload.script}}}\n    </script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
         "x": 930,
         "y": 40,
@@ -211,7 +211,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Device Archiver</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Device Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
         "output": "str",
         "x": 500,
         "y": 40,
