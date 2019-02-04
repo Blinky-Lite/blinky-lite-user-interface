@@ -1,0 +1,99 @@
+:root {
+  --container-background-color: #557a95;
+  --container-title-color: #fdc300;
+  --container-text-color: #ffffff;
+  --background-color: #7395ae;
+  --sub-container-background-color: #c6c2bb;
+  --sub-container-title-color: #016a71;
+  --sub-container-text-color: #000000;
+}
+body {
+  background-color: var(--background-color);
+  padding-left:25px;
+  padding-right:25px;
+}
+
+img {
+  object-fit: contain;
+}
+.jumbotron {
+  background-color: var(--container-background-color) !important;
+  color:var(--container-text-color);
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.jumbotron-title
+{
+  color:var(--container-title-color);
+}
+.jumbotron-button
+{
+  color: var(--background-color);
+  background-color: var(--container-title-color);
+  font-weight: 900;
+}
+.tableHeading
+{
+  color:var(--container-title-color);
+  font-weight: 900;
+}
+.tableText
+{
+  color:var(--container-text-color);
+  font-weight: 900;
+}
+.custom-select
+{
+  color: var(--container-text-color);
+  background-color: var(--background-color);
+
+}
+.form-control
+{
+  text-align: center;
+}
+.checkbox-align
+{
+  vertical-align: middle;
+  text-align: center;
+}
+.plot
+{
+   background-color: #ffffff;
+}
+.plot-trace0
+{
+    fill: #ff0000;
+    fill-opacity:0;
+    stroke-width:2px;
+    stroke: #ff0000;
+}
+.plot-trace1
+{
+    fill: #00ff00;
+    fill-opacity:0;
+    stroke-width:2px;
+    stroke: #00ff00;
+}
+.plot-trace2
+{
+    fill: #0000ff;
+    fill-opacity:0;
+    stroke-width:2px;
+    stroke: #0000ff;
+}
+.plot-trace3
+{
+    fill: #ff00ff;
+    fill-opacity:0;
+    stroke-width:2px;
+    stroke: #ff00ff;
+}
+.csv-linked
+{
+    color: blue;
+}
+.csv-unlinked
+{
+    color: red;
+}

@@ -130,7 +130,7 @@
         "y": 40,
         "wires": [
             [
-                "f408ee76.4597e"
+                "76ead788.0e2c98"
             ]
         ]
     },
@@ -143,9 +143,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Device Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <link href=\"/scripts/visDist/vis-timeline-graph2d.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n    <style>\n        {{{payload.style}}}\n    </style>\n    <script>\n        {{{payload.script}}}\n    </script>\n  </head>\n  <body>\n    {{{payload.navbar}}}\n    {{{payload.devSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Device Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <link href=\"/scripts/visDist/vis-timeline-graph2d.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
-        "x": 930,
+        "x": 710,
         "y": 40,
         "wires": [
             [
@@ -160,66 +160,9 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1110,
+        "x": 910,
         "y": 40,
         "wires": []
-    },
-    {
-        "id": "f408ee76.4597e",
-        "type": "template",
-        "z": "a7b9d689.b8a5e8",
-        "name": "CSS",
-        "field": "payload.style",
-        "fieldType": "msg",
-        "format": "css",
-        "syntax": "mustache",
-        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n    \n}\n.form-control\n{\n  text-align: center;  \n}\n.checkbox-align\n{\n  vertical-align: middle; \n  text-align: center; \n}\n.plot\n{\n   background-color: #ffffff; \n}\n.plot-trace0 \n{\n    fill: #ff0000;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff0000;\n}\n.plot-trace1 \n{\n    fill: #00ff00;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #00ff00;\n}\n.plot-trace2 \n{\n    fill: #0000ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #0000ff;\n}\n.plot-trace3 \n{\n    fill: #ff00ff;\n    fill-opacity:0;\n    stroke-width:2px;\n    stroke: #ff00ff;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}\n",
-        "output": "str",
-        "x": 210,
-        "y": 40,
-        "wires": [
-            [
-                "e2bc60bf.5c5a8"
-            ]
-        ]
-    },
-    {
-        "id": "e2bc60bf.5c5a8",
-        "type": "template",
-        "z": "a7b9d689.b8a5e8",
-        "name": "JavaScript",
-        "field": "payload.script",
-        "fieldType": "msg",
-        "format": "javascript",
-        "syntax": "mustache",
-        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\nvar sysSelect = [];\nvar sysSelectValue = [];\nvar sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];\nvar numPlotDevices = 4;\nvar plotAxis = [];\nvar validDevice = [];\nvar numSys = sysName.length;\nvar dataset = null;\nvar graph2d = null;\nvar groups = null;\nvar numDeviceRequested = 0;\nvar numDeviceReceived = 0;\nvar getDevValueTimer = [];\nvar csvFile = [null,null,null,null];\nvar updateArchiveDisplay = [false,false,false,false];\n\n$( document ).ready(function()\n{\n    $('#thinkingRow').hide();\n    $(\"#blinkyLogoThink\").attr(\"src\",\"/img/BlinkyLite.gif\");\n    userID  = getRandomInt(4096);\n    wsConnectC();\n    groups = new vis.DataSet();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        sysSelect[idev] = [];\n        for (var isys = 0; isys < numSys; ++isys)\n        {\n            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());\n        }\n        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());\n        plotAxis[idev] = 'none';\n        validDevice[idev] = false;\n        groups.add(\n        {\n            id: idev,\n            content: 'Group x',\n            visible: false,\n            options: {\n                yAxisOrientation: 'left', // right, left\n            },\n            className: 'plot-trace' + idev.toString(),\n        });\n    }\n    var container = document.getElementById('timePlot');\n    dataset = new vis.DataSet();\n    var now = new Date();\n    var then = new Date(now.getTime() - 3600 * 24 * 1000);\n    $( \"#startDate\" ).val(then.toLocaleString());\n    $( \"#stopDate\" ).val(now.toLocaleString());\n    graph2d = new vis.Graph2d(container, dataset, groups, setOptions(0, 10, 0, 10, then, now));\n    $( function() \n    {\n        $('#startDate').datetimepicker();\n    } );\n    $( function() \n    {\n        $('#stopDate').datetimepicker();\n    } );\n    getDevValueTimer = setInterval(getDevValue,1000);\n\n});\nfunction wsConnectC() \n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event) \n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic) \n            {\n                case 'loadSystem':\n                    loadSystem(msg);\n                    break;\n                case 'putDevArchive':\n                    putDevArchive(msg);\n                    break;\n                case 'putDevValue':\n                    putDevValue(msg);\n                    break;\n                default:\n                // code block\n            }        \n        }\n        \n    };\n    ws.onopen = function() \n    {   \n        console.log(\"Websocket connected\");\n        for (var idev = 0; idev < numPlotDevices; ++idev)\n        {\n            ws.send(JSON.stringify(\n            {\n                topic       : 'getDevSystem',\n                system      : sysName[0],\n                payload     : {},\n                'userID'    : userID,\n                plotDevice      : idev,\n                sysSelectIndex  : 0,\n            }));\n        }\n    };\n    ws.onclose = function() \n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction loadSystem(systemData)\n{\n    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);\n    for (var ii = 0; ii < systemData.payload.length; ++ii)\n    {\n        opt = document.createElement('option');\n        opt.value = systemData.payload[ii];\n        opt.innerHTML = systemData.payload[ii];\n        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);\n    }\n}\nfunction clearDownStreamColumns(plotDevice, sysSelectIndex)\n{\n    for (var isys = sysSelectIndex; isys < numSys; ++isys)\n    {\n        while (sysSelect[plotDevice][isys].firstChild) \n        {\n            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);\n        }\n    }\n    var opt = document.createElement('option');\n    opt.value = 'notSelected';\n    opt.innerHTML = '';\n    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);\n    sysSelectValue[plotDevice].innerHTML = '';\n    $( \"#plotAxis_\" + plotDevice.toString() + \"L\").prop(\"disabled\", true);\n    $( \"#plotAxis_\" + plotDevice.toString() + \"R\").prop(\"disabled\", true);\n    $( \"#plotAxis_\" + plotDevice.toString() + \"N\").prop(\"disabled\", true);\n    $( \"#plotAxis_\" + plotDevice.toString() + \"N\").prop(\"checked\", true);\n    $('#csv'+ plotDevice.toString()).removeAttr(\"href\");\n    $('#csv'+ plotDevice.toString()).css('color', 'white');\n    $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');\n    $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');\n    $('#archPer_'+ plotDevice.toString()).prop(\"disabled\", true);\n    $('#archPer_' + plotDevice.toString()).val('0');\n    $('#archPerButton_'+ plotDevice.toString()).prop(\"disabled\", true);\n    updateArchiveDisplay[plotDevice] = false;\n    clearDataSet(plotDevice);\n    plotAxis[plotDevice] = 'none';\n    validDevice[plotDevice] = false;\n}\nfunction sysSelected(plotDevice, sysSelectIndex)\n{\n    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;\n    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')\n    {\n        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);\n    }\n    if (sysSelectIndex < (numSys - 1))\n    {\n        var newMsg = \n            {\n                topic           : 'getDevSystem',\n                system          : sysName[sysSelectIndex + 1],\n                payload         : {},\n                userID          : userID,\n                plotDevice      : plotDevice,\n                sysSelectIndex  : sysSelectIndex + 1\n            };\n        for (var isys = 0; isys <= sysSelectIndex; ++isys)\n        {\n            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;\n        }\n        ws.send(JSON.stringify(newMsg));\n    }\n    else\n    {\n        $( \"#plotAxis_\" + plotDevice.toString() + \"L\").prop(\"disabled\", false);\n        $( \"#plotAxis_\" + plotDevice.toString() + \"R\").prop(\"disabled\", false);\n        $( \"#plotAxis_\" + plotDevice.toString() + \"N\").prop(\"disabled\", false);\n        $('#archPer_'+ plotDevice.toString()).prop(\"disabled\", false);\n        $('#archPerButton_'+ plotDevice.toString()).prop(\"disabled\", false);\n        updateArchiveDisplay[plotDevice] = true;\n        validDevice[plotDevice] = true;\n        groups.update({id: plotDevice, content: getDevName(plotDevice), visible: false});\n        graph2d.setGroups(groups);\n    }\n     \n}\nfunction getDevName(plotDevice)\n{\n    if (!validDevice[plotDevice]) return;\n    var devName = sysSelect[plotDevice][0].value;\n    for (var isys = 1; isys < numSys; ++isys)\n    {\n        devName = devName + '-' + sysSelect[plotDevice][isys].value;\n    }\n    return devName;\n}\nfunction getDevValue()\n{\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg = \n                {\n                    topic           : 'getDevValue',\n                    payload         : {},\n                    userID          : userID,\n                    plotDevice      : idev,\n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\nfunction putDevValue(deviceData)\n{\n    if (deviceData.payload.type == 'scalar')\n    {\n        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;\n    }\n    if (updateArchiveDisplay[deviceData.plotDevice] == true)\n    {\n        $('#archPer_' + deviceData.plotDevice.toString()).val(deviceData.payload.archive_period);\n        updateArchiveDisplay[deviceData.plotDevice] = false;\n    }\n}\nfunction putDevArchive(deviceData)\n{\n    makeCsvFile(deviceData);\n    var data = [];\n    var maxPtsToPlot = Number($( '#maxPtsToPlot').val());\n    var npts = deviceData.payload.length;\n    var step = 1;\n    if (deviceData.payload.length > maxPtsToPlot)\n    {\n        npts = maxPtsToPlot;\n        step = deviceData.payload.length / maxPtsToPlot;\n    }\n\n    for (var ii = 0; ii < npts; ++ii)\n    {\n        var ipt = Math.round(ii * step);\n        dataset.add(\n        {\n            x: new vis.moment(deviceData.payload[ipt].time),\n            y: deviceData.payload[ipt].value,\n            group : deviceData.plotDevice\n        });\n    }\n    ++numDeviceReceived;\n    if (numDeviceRequested == numDeviceReceived) \n    {\n        $('#plotSetupTable').show();\n        $('#thinkingRow').hide();\n        rescalePlot();\n\n    }\n}\nmakeCsvFile = function (deviceData) \n{\n    var dataString = '';\n    \n    dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\\n';\n    dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\\n';\n    dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\\n';\n    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\\n';\n    for (var ii = 0; ii < deviceData.payload.length; ++ii)\n    {\n        var value = deviceData.payload[ii].value;\n        if (isNaN(value) || (value == null))\n        {\n            value = 'NaN';\n        }\n        else\n        {\n            value = value.toString();\n        }\n        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',';\n        dataString = dataString + value + '\\n';\n    }\n    var data = new Blob([dataString], {type: 'text/plain'});\n\n    // If we are replacing a previously generated file we need to\n    // manually revoke the object URL to avoid memory leaks.\n    if (csvFile[deviceData.plotDevice] !== null) {\n      window.URL.revokeObjectURL(csvFile[deviceData.plotDevice]);\n    }\n\n    csvFile[deviceData.plotDevice] = window.URL.createObjectURL(data);\n    // returns a URL you can use as a href\n    $('#csv'+ deviceData.plotDevice.toString()).css('color', 'blue');\n    $('#csv'+ deviceData.plotDevice.toString()).css('text-decoration', 'underline');\n    $('#csv'+ deviceData.plotDevice.toString()).css('font-weight', 'bold');\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"href\", csvFile[deviceData.plotDevice]);\n    $('#csv'+ deviceData.plotDevice.toString()).attr(\"download\", getDevName(deviceData.plotDevice) + '.csv');\n\n}\nfunction setOptions(leftMin, leftMax, rightMin, rightMax, startDate, stopDate)\n{\n    var options = \n    {\n        start: startDate, // changed so its faster\n        end: stopDate,\n        dataAxis:\n        {\n            alignZeros : false,\n            left:\n            {\n                range:\n                {\n                    min:leftMin, max: leftMax\n                }\n            },\n            right:\n            {\n                range:\n                {\n                    min:rightMin, max: rightMax\n                }\n            }\n        },\n        drawPoints: false,\n        legend: \n        {\n            enabled: true,\n            left: \n            {\n                position:\"top-left\",\n                visible: true\n            },\n            right: \n            {\n                position:\"top-right\",\n                visible: true\n            },\n        },\n        interpolation :false\n    };\n    return options;\n}\nfunction rescalePlot()\n{\n    graph2d.setOptions(\n        setOptions(\n            Number($( '#leftMin').val()), \n            Number($( '#leftMax').val()), \n            Number($( '#rightMin').val()), \n            Number($( '#rightMax').val()), \n            new Date($( \"#startDate\" ).val()), \n            new Date($( \"#stopDate\" ).val()) ) );\n}\nfunction selectAxis(plotDevice, axis)\n{\n    var visibile = true;\n    if (axis == 'none') visibile = false;\n    var setAxis = 'left';\n    if (axis == 'right') setAxis = 'right';\n    if (validDevice[plotDevice])\n    {\n        groups.update(\n            {\n                id: plotDevice, \n                visible: visibile,\n                options: \n                {\n                    yAxisOrientation: setAxis, // right, left\n                }\n            });\n        graph2d.setGroups(groups);\n    }\n}\nfunction clearDataSet(plotDevice)\n{\n    var oldIds = dataset.getIds(\n    {\n        filter: function (item) \n        {\n            return ((item.x > 0) && (item.group == plotDevice));\n        }\n    });\n    dataset.remove(oldIds);\n\n}\nfunction getArchiveData()\n{\n    numDeviceRequested = 0;\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev]) \n        {\n            ++numDeviceRequested;\n            clearDataSet(idev);\n        }\n    };\n    if (numDeviceRequested < 1) return;\n\n    numDeviceReceived = 0;\n    var startDate = new Date($( \"#startDate\" ).val());\n    var stopDate = new Date($( \"#stopDate\" ).val());\n    $('#plotSetupTable').hide();\n    $('#thinkingRow').show();\n    for (var idev = 0; idev < numPlotDevices; ++idev)\n    {\n        if (validDevice[idev])\n        {\n            var newMsg = \n                {\n                    topic           :   'getDevArchive',\n                    payload         :   {},\n                    userID          :   userID,\n                    plotDevice      :   idev,\n                    startTime       :   startDate.getTime(), \n                    stopTime        :   stopDate.getTime(), \n                };\n            for (var isys = 0; isys < numSys; ++isys)\n            {\n                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;\n            }\n            ws.send(JSON.stringify(newMsg));\n        }\n    }\n}\n",
-        "output": "str",
-        "x": 350,
-        "y": 40,
-        "wires": [
-            [
-                "d1b3cdc7.d6f86"
-            ]
-        ]
-    },
-    {
-        "id": "d1b3cdc7.d6f86",
-        "type": "template",
-        "z": "a7b9d689.b8a5e8",
-        "name": "NavBar",
-        "field": "payload.navbar",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Device Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
-        "output": "str",
-        "x": 500,
-        "y": 40,
-        "wires": [
-            [
-                "f7771b1.740afe8"
-            ]
-        ]
     },
     {
         "id": "1c59d82a.896018",
@@ -228,8 +171,8 @@
         "name": "Socket In",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 80,
-        "y": 160,
+        "x": 100,
+        "y": 180,
         "wires": [
             [
                 "5660e69.e917918"
@@ -243,8 +186,8 @@
         "name": "Socket Out",
         "server": "3c1c519e.83272e",
         "client": "",
-        "x": 1310,
-        "y": 320,
+        "x": 1330,
+        "y": 340,
         "wires": []
     },
     {
@@ -255,8 +198,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 210,
-        "y": 160,
+        "x": 230,
+        "y": 180,
         "wires": [
             [
                 "36df735b.77b3dc"
@@ -290,8 +233,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 330,
-        "y": 160,
+        "x": 350,
+        "y": 180,
         "wires": [
             [
                 "27f42edd.fab892"
@@ -312,8 +255,8 @@
         "name": "Find in device db",
         "collection": "devices",
         "operation": "find",
-        "x": 770,
-        "y": 160,
+        "x": 790,
+        "y": 180,
         "wires": [
             [
                 "e285da1.6e02e28"
@@ -328,30 +271,11 @@
         "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    system          : msg.payload.system,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    sysSelectIndex  : msg.payload.sysSelectIndex,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection[msg.payload.system] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 120,
+        "x": 530,
+        "y": 140,
         "wires": [
             [
                 "6e4a6efd.c2022"
-            ]
-        ]
-    },
-    {
-        "id": "f7771b1.740afe8",
-        "type": "template",
-        "z": "a7b9d689.b8a5e8",
-        "name": "devSelect",
-        "field": "payload.devSelect",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"8%\" align=\"center\"><span class=\"tableHeading\">Value</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">L</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">R</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">X</span></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv0', href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_0L\" type=\"radio\" name=\"plotAxis_0\"  value=\"left\"  onchange='selectAxis(0,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_0R\" type=\"radio\" name=\"plotAxis_0\"  value=\"right\" onchange='selectAxis(0,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_0N\" type=\"radio\" name=\"plotAxis_0\"  value=\"none\"  onchange='selectAxis(0,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv1', href='' target='_blank' download=\"data1.csv\" class=\"csv-linked\">2</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_1L\" type=\"radio\" name=\"plotAxis_1\"  value=\"left\"  onchange='selectAxis(1,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_1R\" type=\"radio\" name=\"plotAxis_1\"  value=\"right\" onchange='selectAxis(1,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_1N\" type=\"radio\" name=\"plotAxis_1\"  value=\"none\"  onchange='selectAxis(1,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv2', href='' target='_blank' download=\"data2.csv\" class=\"csv-linked\">3</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_2L\" type=\"radio\" name=\"plotAxis_2\"  value=\"left\"  onchange='selectAxis(2,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_2R\" type=\"radio\" name=\"plotAxis_2\"  value=\"right\" onchange='selectAxis(2,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_2N\" type=\"radio\" name=\"plotAxis_2\"  value=\"none\"  onchange='selectAxis(2,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv3', href='' target='_blank' download=\"data3.csv\" class=\"csv-linked\">4</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_3L\" type=\"radio\" name=\"plotAxis_3\"  value=\"left\"  onchange='selectAxis(3,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_3R\" type=\"radio\" name=\"plotAxis_3\"  value=\"right\" onchange='selectAxis(3,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_3N\" type=\"radio\" name=\"plotAxis_3\"  value=\"none\"  onchange='selectAxis(3,\"none\")'  disabled  checked ></td>\n            </form>\n      </tr>\n    </table>\n</div>\n",
-        "output": "str",
-        "x": 640,
-        "y": 40,
-        "wires": [
-            [
-                "398e5806.e69b68"
             ]
         ]
     },
@@ -363,8 +287,8 @@
         "func": "var sysArray = [];\nvar sysCounter = 0;\nsysArray[sysCounter] =  msg.payload[0][msg.system];\n++sysCounter;\nfor (var idevice = 1; idevice < msg.payload.length; ++idevice)\n{\n    if (msg.payload[idevice]['type'] == 'scalar')\n    {\n        var ideviceFound = false;\n        for (var isys = 0; isys < sysCounter; ++isys)\n        {\n            if (msg.payload[idevice][msg.system] == sysArray[isys])\n            {\n                ideviceFound = true;\n            }\n        }\n        if (!ideviceFound)\n        {\n           sysArray[sysCounter] =  msg.payload[idevice][msg.system];\n            ++sysCounter;\n        }\n    }\n}\nreturn {\n    topic:'loadSystem',\n    payload:{\n        system          : msg.system,\n        topic           : 'loadSystem',\n        payload         : sysArray,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice,\n        sysSelectIndex  : msg.sysSelectIndex,\n\n    }\n};\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 930,
-        "y": 280,
+        "x": 950,
+        "y": 300,
         "wires": [
             [
                 "aa9750ce.f38ed"
@@ -379,8 +303,8 @@
         "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    projection      : {}\n};\nnewMsg.projection['value'] = 1;\nnewMsg.projection['time'] = 1;\nnewMsg.projection['type'] = 1;\nnewMsg.projection['archive_period'] = 1;\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 0;\nreturn newMsg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 160,
+        "x": 530,
+        "y": 180,
         "wires": [
             [
                 "6e4a6efd.c2022"
@@ -414,8 +338,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 610,
-        "y": 320,
+        "x": 630,
+        "y": 340,
         "wires": [
             [
                 "fa44db0f.a97ee8"
@@ -436,30 +360,11 @@
         "func": "return {\n    topic:'putDevValue',\n    payload:{\n        topic           : 'putDevValue',\n        payload         : msg.payload[0],\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 930,
-        "y": 320,
+        "x": 950,
+        "y": 340,
         "wires": [
             [
                 "aa9750ce.f38ed"
-            ]
-        ]
-    },
-    {
-        "id": "398e5806.e69b68",
-        "type": "template",
-        "z": "a7b9d689.b8a5e8",
-        "name": "plotSetup",
-        "field": "payload.plotSetup",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">L Min</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">L Max</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">R Min</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">R Max</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Plot Pts</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                    <td width=10% align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"rescaleButton\" type=\"button\" onclick=\"rescalePlot()\">Rescale</button>\n                    </td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"leftMin\" type=\"text\" value=\"0\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"leftMax\" type=\"text\" value=\"10\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"rightMin\" type=\"text\" value=\"0\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"rightMax\" type=\"text\" value=\"10\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"500\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n   </div>\n    <div class='row'>\n        <div class='col-md-2'>\n            <div id='thinkingRow' align='center'>\n                <img id='blinkyLogoThink' src='' class='img' width='100%'>\n                <p class=\"tableHeading\">Thinking!</p>\n            </div>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>        \n        </div>\n    </div>\n</div>\n\n",
-        "output": "str",
-        "x": 780,
-        "y": 40,
-        "wires": [
-            [
-                "bb0d6c04.0770f"
             ]
         ]
     },
@@ -471,8 +376,8 @@
         "name": "Find in archiver",
         "collection": "archiver",
         "operation": "find",
-        "x": 940,
-        "y": 360,
+        "x": 960,
+        "y": 380,
         "wires": [
             [
                 "d2bf69c9.2bad58"
@@ -487,8 +392,8 @@
         "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 550,
-        "y": 200,
+        "x": 570,
+        "y": 220,
         "wires": [
             [
                 "6e4a6efd.c2022"
@@ -503,8 +408,8 @@
         "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 760,
-        "y": 360,
+        "x": 780,
+        "y": 380,
         "wires": [
             [
                 "b24507d5.499a58"
@@ -519,8 +424,8 @@
         "func": "//if (msg.payload.length < 1) return null;\n//if (msg.payload[0].type != 'scalar') return null;\n\nvar data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1140,
-        "y": 360,
+        "x": 1160,
+        "y": 380,
         "wires": [
             [
                 "aa9750ce.f38ed"
@@ -535,8 +440,8 @@
         "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"linac\",\n        sys02   : \"gallery\",\n        sys03   : \"11\",\n        sys04   : \"diag\",\n        device  : \"geiger\",\n        attr    : \"cpm\",\n        prop    : \"reading\",\n    },\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n};\nreturn newMsg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 380,
-        "y": 640,
+        "x": 400,
+        "y": 460,
         "wires": [
             [
                 "51a62b7b.5e44e4"
@@ -551,8 +456,8 @@
         "name": "Find in device db",
         "collection": "devices",
         "operation": "find",
-        "x": 590,
-        "y": 640,
+        "x": 610,
+        "y": 460,
         "wires": [
             [
                 "80a4b780.ff5198"
@@ -569,8 +474,8 @@
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 750,
-        "y": 640,
+        "x": 770,
+        "y": 460,
         "wires": []
     },
     {
@@ -585,11 +490,68 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 200,
-        "y": 640,
+        "x": 220,
+        "y": 460,
         "wires": [
             [
                 "b1f29722.e81d28"
+            ]
+        ]
+    },
+    {
+        "id": "47ff9adb.808a04",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "systemSelect",
+        "field": "payload.systemSelect",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div width=\"100%\">\n    <table width=\"100%\">\n        <tr>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">Tr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys01</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys02</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys03</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">sys04</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">device</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">attr</span></td>\n            <td width=\"12%\" align=\"center\"><span class=\"tableHeading\">prop</span></td>\n            <td width=\"8%\" align=\"center\"><span class=\"tableHeading\">Value</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">L</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">R</span></td>\n            <td width=\"2%\" align=\"center\"><span class=\"tableHeading\">X</span></td>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv0', href='' target='_blank' download=\"data0.csv\" class=\"csv-linked\">1</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_0\" onchange=\"sysSelected(0,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_1\" onchange=\"sysSelected(0,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_2\" onchange=\"sysSelected(0,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_3\" onchange=\"sysSelected(0,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_4\" onchange=\"sysSelected(0,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_5\" onchange=\"sysSelected(0,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_0_6\" onchange=\"sysSelected(0,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_0\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_0L\" type=\"radio\" name=\"plotAxis_0\"  value=\"left\"  onchange='selectAxis(0,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_0R\" type=\"radio\" name=\"plotAxis_0\"  value=\"right\" onchange='selectAxis(0,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_0N\" type=\"radio\" name=\"plotAxis_0\"  value=\"none\"  onchange='selectAxis(0,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv1', href='' target='_blank' download=\"data1.csv\" class=\"csv-linked\">2</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_0\" onchange=\"sysSelected(1,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_1\" onchange=\"sysSelected(1,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_2\" onchange=\"sysSelected(1,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_3\" onchange=\"sysSelected(1,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_4\" onchange=\"sysSelected(1,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_5\" onchange=\"sysSelected(1,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_1_6\" onchange=\"sysSelected(1,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_1\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_1L\" type=\"radio\" name=\"plotAxis_1\"  value=\"left\"  onchange='selectAxis(1,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_1R\" type=\"radio\" name=\"plotAxis_1\"  value=\"right\" onchange='selectAxis(1,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_1N\" type=\"radio\" name=\"plotAxis_1\"  value=\"none\"  onchange='selectAxis(1,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv2', href='' target='_blank' download=\"data2.csv\" class=\"csv-linked\">3</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_0\" onchange=\"sysSelected(2,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_1\" onchange=\"sysSelected(2,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_2\" onchange=\"sysSelected(2,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_3\" onchange=\"sysSelected(2,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_4\" onchange=\"sysSelected(2,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_5\" onchange=\"sysSelected(2,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_2_6\" onchange=\"sysSelected(2,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_2\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_2L\" type=\"radio\" name=\"plotAxis_2\"  value=\"left\"  onchange='selectAxis(2,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_2R\" type=\"radio\" name=\"plotAxis_2\"  value=\"right\" onchange='selectAxis(2,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_2N\" type=\"radio\" name=\"plotAxis_2\"  value=\"none\"  onchange='selectAxis(2,\"none\")'  disabled  checked ></td>\n            </form>\n        </tr>\n        <tr>\n            <td align=\"center\">\n                <a id='csv3', href='' target='_blank' download=\"data3.csv\" class=\"csv-linked\">4</a>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_0\" onchange=\"sysSelected(3,0)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_1\" onchange=\"sysSelected(3,1)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_2\" onchange=\"sysSelected(3,2)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_3\" onchange=\"sysSelected(3,3)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_4\" onchange=\"sysSelected(3,4)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_5\" onchange=\"sysSelected(3,5)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td>\n                <select class=\"custom-select\" id=\"sysSelect_3_6\" onchange=\"sysSelected(3,6)\">\n                    <option value='notSelected'></option>\n                </select>\n            </td>\n            <td align=\"center\"><span class=\"tableText\" id=\"sysSelectValue_3\"></span></td>\n            <form action=\"\" >\n               <td align=\"center\"><input id=\"plotAxis_3L\" type=\"radio\" name=\"plotAxis_3\"  value=\"left\"  onchange='selectAxis(3,\"left\")'  disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_3R\" type=\"radio\" name=\"plotAxis_3\"  value=\"right\" onchange='selectAxis(3,\"right\")' disabled></td>\n               <td align=\"center\"><input id=\"plotAxis_3N\" type=\"radio\" name=\"plotAxis_3\"  value=\"none\"  onchange='selectAxis(3,\"none\")'  disabled  checked ></td>\n            </form>\n      </tr>\n    </table>\n</div>\n",
+        "output": "str",
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "2c907039.47dfb"
+            ]
+        ]
+    },
+    {
+        "id": "76ead788.0e2c98",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "navBar",
+        "field": "payload.navBar",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Scalar Device Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "output": "str",
+        "x": 240,
+        "y": 40,
+        "wires": [
+            [
+                "47ff9adb.808a04"
+            ]
+        ]
+    },
+    {
+        "id": "2c907039.47dfb",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "plotSetup",
+        "field": "payload.plotSetup",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">L Min</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">L Max</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">R Min</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">R Max</td>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Plot Pts</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                    <td width=10% align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"rescaleButton\" type=\"button\" onclick=\"rescalePlot()\">Rescale</button>\n                    </td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"leftMin\" type=\"text\" value=\"0\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"leftMax\" type=\"text\" value=\"10\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"rightMin\" type=\"text\" value=\"0\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"rightMax\" type=\"text\" value=\"10\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"500\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n   </div>\n    <div class='row'>\n        <div class='col-md-2'>\n            <div id='thinkingRow' align='center'>\n                <img id='blinkyLogoThink' src='' class='img' width='100%'>\n                <p class=\"tableHeading\">Thinking!</p>\n            </div>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <div id=\"timePlot2\" width=\"100%\" class=\"plot\"></div>\n        </div>\n    </div>\n</div>\n",
+        "output": "str",
+        "x": 560,
+        "y": 40,
+        "wires": [
+            [
+                "bb0d6c04.0770f"
             ]
         ]
     }
