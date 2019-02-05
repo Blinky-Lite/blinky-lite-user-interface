@@ -5,24 +5,19 @@ var sysSelect = [];
 var sysSelectValue = [];
 var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];
 var numPlotDevices = 4;
-var plotAxis = [];
+var plotAxis = ['y1', 'y1', 'y1', 'y1'];
+var plotPts = [false, false, false, false];
 var validDevice = [];
 var numSys = sysName.length;
-var dataset = null;
-var graph2d = null;
-var groups = null;
 var numDeviceRequested = 0;
 var numDeviceReceived = 0;
 var getDevValueTimer = [];
 var csvFile = [null,null,null,null];
-var updateArchiveDisplay = [false,false,false,false];
+var traceData = [];
 $( document ).ready(function()
 {
-    $('#thinkingRow').hide();
-    $("#blinkyLogoThink").attr("src","/img/BlinkyLite.gif");
     userID  = getRandomInt(4096);
     wsConnectC();
-    groups = new vis.DataSet();
     for (var idev = 0; idev < numPlotDevices; ++idev)
     {
         sysSelect[idev] = [];
@@ -31,26 +26,13 @@ $( document ).ready(function()
             sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());
         }
         sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());
-        plotAxis[idev] = 'none';
         validDevice[idev] = false;
-        groups.add(
-        {
-            id: idev,
-            content: 'Group x',
-            visible: false,
-            options: {
-                yAxisOrientation: 'left', // right, left
-            },
-            className: 'plot-trace' + idev.toString(),
-        });
     }
-    var container = document.getElementById('timePlot');
-    dataset = new vis.DataSet();
     var now = new Date();
+    console.log(now.toLocaleString('en-SE'));
     var then = new Date(now.getTime() - 3600 * 24 * 1000);
     $( "#startDate" ).val(then.toLocaleString());
     $( "#stopDate" ).val(now.toLocaleString());
-    graph2d = new vis.Graph2d(container, dataset, groups, setOptions(0, 10, 0, 10, then, now));
     $( function()
     {
         $('#startDate').datetimepicker();
@@ -138,20 +120,10 @@ function clearDownStreamColumns(plotDevice, sysSelectIndex)
     opt.innerHTML = '';
     sysSelect[plotDevice][sysSelectIndex].appendChild(opt);
     sysSelectValue[plotDevice].innerHTML = '';
-    $( "#plotAxis_" + plotDevice.toString() + "L").prop("disabled", true);
-    $( "#plotAxis_" + plotDevice.toString() + "R").prop("disabled", true);
-    $( "#plotAxis_" + plotDevice.toString() + "N").prop("disabled", true);
-    $( "#plotAxis_" + plotDevice.toString() + "N").prop("checked", true);
     $('#csv'+ plotDevice.toString()).removeAttr("href");
     $('#csv'+ plotDevice.toString()).css('color', 'white');
     $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');
     $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');
-    $('#archPer_'+ plotDevice.toString()).prop("disabled", true);
-    $('#archPer_' + plotDevice.toString()).val('0');
-    $('#archPerButton_'+ plotDevice.toString()).prop("disabled", true);
-    updateArchiveDisplay[plotDevice] = false;
-    clearDataSet(plotDevice);
-    plotAxis[plotDevice] = 'none';
     validDevice[plotDevice] = false;
 }
 function sysSelected(plotDevice, sysSelectIndex)
@@ -180,15 +152,7 @@ function sysSelected(plotDevice, sysSelectIndex)
     }
     else
     {
-        $( "#plotAxis_" + plotDevice.toString() + "L").prop("disabled", false);
-        $( "#plotAxis_" + plotDevice.toString() + "R").prop("disabled", false);
-        $( "#plotAxis_" + plotDevice.toString() + "N").prop("disabled", false);
-        $('#archPer_'+ plotDevice.toString()).prop("disabled", false);
-        $('#archPerButton_'+ plotDevice.toString()).prop("disabled", false);
-        updateArchiveDisplay[plotDevice] = true;
         validDevice[plotDevice] = true;
-        groups.update({id: plotDevice, content: getDevName(plotDevice), visible: false});
-        graph2d.setGroups(groups);
     }
 
 }
@@ -229,11 +193,6 @@ function putDevValue(deviceData)
     {
         sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;
     }
-    if (updateArchiveDisplay[deviceData.plotDevice] == true)
-    {
-        $('#archPer_' + deviceData.plotDevice.toString()).val(deviceData.payload.archive_period);
-        updateArchiveDisplay[deviceData.plotDevice] = false;
-    }
 }
 function putDevArchive(deviceData)
 {
@@ -247,24 +206,58 @@ function putDevArchive(deviceData)
         npts = maxPtsToPlot;
         step = deviceData.payload.length / maxPtsToPlot;
     }
-
+    var modeType = 'lines';
+    if (plotPts[deviceData.plotDevice]) modeType = 'markers';
+    var trace = {
+      x: [],
+      y: [],
+      name: plotAxis[deviceData.plotDevice] + ' ' + getDevName(deviceData.plotDevice),
+      yaxis: plotAxis[deviceData.plotDevice],
+      type: 'scatter',
+      mode: modeType
+    }
+    var startDate = new Date($( "#startDate" ).val()).getTime();
     for (var ii = 0; ii < npts; ++ii)
     {
         var ipt = Math.round(ii * step);
-        dataset.add(
-        {
-            x: new vis.moment(deviceData.payload[ipt].time),
-            y: deviceData.payload[ipt].value,
-            group : deviceData.plotDevice
-        });
+        trace.x[ii] = (deviceData.payload[ipt].time - startDate)/ 3600000.0;
+        trace.y[ii] = deviceData.payload[ipt].value;
     }
+    traceData.push(trace);
     ++numDeviceReceived;
     if (numDeviceRequested == numDeviceReceived)
     {
-        $('#plotSetupTable').show();
-        $('#thinkingRow').hide();
-        rescalePlot();
+        var layout =
+        {
+          showlegend: true,
+          legend:
+          {
+            x: 0,
+            y: 1.35
+          },
 
+//          title: $( "#startDate" ).val() + ' - ' + $( "#stopDate" ).val(),
+          xaxis:
+          {
+            title: 'Hours since ' + $( "#startDate" ).val() + ' until ' + $( "#stopDate" ).val(),
+          },
+          yaxis:
+          {
+            title: 'y1',
+            titlefont: {color: 'rgb(0, 0, 255)'},
+            tickfont: {color: 'rgb(0, 0, 255)'},
+          },
+          yaxis2:
+          {
+            title: 'y2',
+            titlefont: {color: 'rgb(255, 0, 0)'},
+            tickfont: {color: 'rgb(255, 0, 0)'},
+            overlaying: 'y',
+            side: 'right'
+          }
+        };
+        Plotly.newPlot('timePlot', traceData, layout);
+        $('#plotSetupTable').show();
     }
 }
 makeCsvFile = function (deviceData)
@@ -306,92 +299,6 @@ makeCsvFile = function (deviceData)
     $('#csv'+ deviceData.plotDevice.toString()).attr("download", getDevName(deviceData.plotDevice) + '.csv');
 
 }
-function setOptions(leftMin, leftMax, rightMin, rightMax, startDate, stopDate)
-{
-    var options =
-    {
-        start: startDate, // changed so its faster
-        end: stopDate,
-        dataAxis:
-        {
-            alignZeros : false,
-            left:
-            {
-                range:
-                {
-                    min:leftMin, max: leftMax
-                }
-            },
-            right:
-            {
-                range:
-                {
-                    min:rightMin, max: rightMax
-                }
-            }
-        },
-        drawPoints: false,
-        legend:
-        {
-            enabled: true,
-            left:
-            {
-                position:"top-left",
-                visible: true
-            },
-            right:
-            {
-                position:"top-right",
-                visible: true
-            },
-        },
-        interpolation :false
-    };
-    return options;
-}
-function rescalePlot()
-{
-    graph2d.setOptions(
-        setOptions(
-            Number($( '#leftMin').val()),
-            Number($( '#leftMax').val()),
-            Number($( '#rightMin').val()),
-            Number($( '#rightMax').val()),
-            new Date($( "#startDate" ).val()),
-            new Date($( "#stopDate" ).val()) ) );
-}
-function selectAxis(plotDevice, axis)
-{
-    var visibile = true;
-    if (axis == 'none') visibile = false;
-    var setAxis = 'left';
-    if (axis == 'right') setAxis = 'right';
-    if (validDevice[plotDevice])
-    {
-        groups.update(
-            {
-                id: plotDevice,
-                visible: visibile,
-                options:
-                {
-                    yAxisOrientation: setAxis, // right, left
-                }
-            });
-        graph2d.setGroups(groups);
-    }
-}
-function clearDataSet(plotDevice)
-{
-    var oldIds = dataset.getIds(
-    {
-        filter: function (item)
-        {
-            return ((item.x > 0) && (item.group == plotDevice));
-        }
-    });
-    dataset.remove(oldIds);
-
-}
 function getArchiveData()
 {
     numDeviceRequested = 0;
@@ -400,7 +307,6 @@ function getArchiveData()
         if (validDevice[idev])
         {
             ++numDeviceRequested;
-            clearDataSet(idev);
         }
     };
     if (numDeviceRequested < 1) return;
@@ -409,9 +315,10 @@ function getArchiveData()
     var startDate = new Date($( "#startDate" ).val());
     var stopDate = new Date($( "#stopDate" ).val());
     $('#plotSetupTable').hide();
-    $('#thinkingRow').show();
+    traceData = [];
     for (var idev = 0; idev < numPlotDevices; ++idev)
     {
+
         if (validDevice[idev])
         {
             var newMsg =
@@ -430,4 +337,12 @@ function getArchiveData()
             ws.send(JSON.stringify(newMsg));
         }
     }
+}
+function selectAxis(plotDevice,axis)
+{
+  plotAxis[plotDevice] = axis;
+}
+function selectPts(plotDevice,axis)
+{
+  plotPts[plotDevice] = $("#pts_" + plotDevice.toString()).is(':checked');
 }
