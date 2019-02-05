@@ -143,7 +143,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script type=\"text/javascript\" src=\"/scripts/visDist/vis.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <link href=\"/scripts/visDist/vis-timeline-graph2d.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Scalar Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/socketio.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
         "x": 710,
         "y": 40,
@@ -437,7 +437,7 @@
         "type": "function",
         "z": "a7b9d689.b8a5e8",
         "name": "Test Find device",
-        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"linac\",\n        sys02   : \"gallery\",\n        sys03   : \"11\",\n        sys04   : \"diag\",\n        device  : \"geiger\",\n        attr    : \"cpm\",\n        prop    : \"reading\",\n    },\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n};\nreturn newMsg;\n",
+        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"phaseShift\",\n        prop    : \"reading\",\n    },\n/*\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n*/\n};\nreturn newMsg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 400,
@@ -554,5 +554,20 @@
                 "bb0d6c04.0770f"
             ]
         ]
+    },
+    {
+        "id": "941e8858.e22318",
+        "type": "mongodb out",
+        "z": "a7b9d689.b8a5e8",
+        "mongodb": "a77ab212.bfa86",
+        "name": "Remove",
+        "collection": "devices",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "delete",
+        "x": 580,
+        "y": 560,
+        "wires": []
     }
 ]
