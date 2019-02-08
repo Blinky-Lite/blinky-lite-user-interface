@@ -2,17 +2,13 @@ var ws;
 var retries = 0;
 var userID = -1;
 var sysSelect = [];
-var sysSelectValue = [];
 var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];
-var numPlotDevices = 4;
-var plotAxis = ['y1', 'y1', 'y1', 'y1'];
-var plotPts = [false, false, false, false];
+var numPlotDevices = 1;
 var validDevice = [];
 var numSys = sysName.length;
 var numDeviceRequested = 0;
 var numDeviceReceived = 0;
-var getDevValueTimer = [];
-var csvFile = [null,null,null,null];
+var csvFile = [null];
 var traceData = [];
 $( document ).ready(function()
 {
@@ -25,7 +21,6 @@ $( document ).ready(function()
         {
             sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());
         }
-        sysSelectValue[idev] = document.getElementById('sysSelectValue_' + idev.toString());
         validDevice[idev] = false;
     }
     var now = new Date();
@@ -41,7 +36,6 @@ $( document ).ready(function()
     {
         $('#stopDate').datetimepicker();
     } );
-    getDevValueTimer = setInterval(getDevValue,1000);
 });
 function wsConnectC()
 {
@@ -61,9 +55,6 @@ function wsConnectC()
                     break;
                 case 'putDevArchive':
                     putDevArchive(msg);
-                    break;
-                case 'putDevValue':
-                    putDevValue(msg);
                     break;
                 default:
                 // code block
@@ -119,7 +110,6 @@ function clearDownStreamColumns(plotDevice, sysSelectIndex)
     opt.value = 'notSelected';
     opt.innerHTML = '';
     sysSelect[plotDevice][sysSelectIndex].appendChild(opt);
-    sysSelectValue[plotDevice].innerHTML = '';
     $('#csv'+ plotDevice.toString()).removeAttr("href");
     $('#csv'+ plotDevice.toString()).css('color', 'white');
     $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');
@@ -166,34 +156,6 @@ function getDevName(plotDevice)
     }
     return devName;
 }
-function getDevValue()
-{
-    for (var idev = 0; idev < numPlotDevices; ++idev)
-    {
-        if (validDevice[idev])
-        {
-            var newMsg =
-                {
-                    topic           : 'getDevValue',
-                    payload         : {},
-                    userID          : userID,
-                    plotDevice      : idev,
-                };
-            for (var isys = 0; isys < numSys; ++isys)
-            {
-                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;
-            }
-            ws.send(JSON.stringify(newMsg));
-        }
-    }
-}
-function putDevValue(deviceData)
-{
-    if (deviceData.payload.type == 'scalar')
-    {
-        sysSelectValue[deviceData.plotDevice].innerHTML = deviceData.payload.value;
-    }
-}
 function putDevArchive(deviceData)
 {
     makeCsvFile(deviceData);
@@ -206,59 +168,22 @@ function putDevArchive(deviceData)
         npts = maxPtsToPlot;
         step = deviceData.payload.length / maxPtsToPlot;
     }
-    var modeType = 'lines';
-    if (plotPts[deviceData.plotDevice]) modeType = 'markers';
-    var trace = {
-      x: [],
-      y: [],
-      name: plotAxis[deviceData.plotDevice] + ' ' + getDevName(deviceData.plotDevice),
-      yaxis: plotAxis[deviceData.plotDevice],
-      type: 'scatter',
-      mode: modeType
-    }
-    var startDate = new Date($( "#startDate" ).val()).getTime();
+    var z_data = [];
     for (var ii = 0; ii < npts; ++ii)
     {
-        var ipt = Math.round(ii * step);
-        trace.x[ii] = (deviceData.payload[ipt].time - startDate)/ 3600000.0;
-        trace.y[ii] = deviceData.payload[ipt].value;
+      z_data[ii] = deviceData.payload[Math.round(ii * step)].value[1];
     }
-    traceData.push(trace);
-    ++numDeviceReceived;
-    if (numDeviceRequested == numDeviceReceived)
-    {
-        var layout =
-        {
-          showlegend: true,
-          legend:
-          {
-            x: 0,
-            y: 1.35
-          },
+    var data = [{
+               z: z_data,
+               type: 'surface'
+            }];
 
-//          title: $( "#startDate" ).val() + ' - ' + $( "#stopDate" ).val(),
-          xaxis:
-          {
-            title: 'Hours since ' + $( "#startDate" ).val() + ' until ' + $( "#stopDate" ).val(),
-          },
-          yaxis:
-          {
-            title: 'y1',
-            titlefont: {color: 'rgb(0, 0, 255)'},
-            tickfont: {color: 'rgb(0, 0, 255)'},
-          },
-          yaxis2:
-          {
-            title: 'y2',
-            titlefont: {color: 'rgb(255, 0, 0)'},
-            tickfont: {color: 'rgb(255, 0, 0)'},
-            overlaying: 'y',
-            side: 'right'
-          }
-        };
-        Plotly.newPlot('timePlot', traceData, layout);
-        $('#plotSetupTable').show();
-    }
+    var layout = {
+      title: 'testy',
+      autosize: true,
+    };
+    Plotly.newPlot('timePlot', data, layout);
+    ++numDeviceReceived;
 }
 makeCsvFile = function (deviceData)
 {
@@ -270,17 +195,11 @@ makeCsvFile = function (deviceData)
     dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\n';
     for (var ii = 0; ii < deviceData.payload.length; ++ii)
     {
-        var value = deviceData.payload[ii].value;
-        if (isNaN(value) || (value == null))
-        {
-            value = 'NaN';
-        }
-        else
-        {
-            value = value.toString();
-        }
-        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',';
-        dataString = dataString + value + '\n';
+        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',x';
+        for (var ipt = 0; ipt < deviceData.payload[ii].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[0][ipt];
+        dataString = dataString + '\n ,y';
+        for (var ipt = 0; ipt < deviceData.payload[ii].value[1].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[1][ipt];
+        dataString = dataString + '\n';
     }
     var data = new Blob([dataString], {type: 'text/plain'});
 
@@ -315,7 +234,6 @@ function getArchiveData()
     var startDate = new Date($( "#startDate" ).val());
     var stopDate = new Date($( "#stopDate" ).val());
     $('#plotSetupTable').hide();
-    traceData = [];
     for (var idev = 0; idev < numPlotDevices; ++idev)
     {
 
@@ -337,12 +255,4 @@ function getArchiveData()
             ws.send(JSON.stringify(newMsg));
         }
     }
-}
-function selectAxis(plotDevice,axis)
-{
-  plotAxis[plotDevice] = axis;
-}
-function selectPts(plotDevice,axis)
-{
-  plotPts[plotDevice] = $("#pts_" + plotDevice.toString()).is(':checked');
 }
