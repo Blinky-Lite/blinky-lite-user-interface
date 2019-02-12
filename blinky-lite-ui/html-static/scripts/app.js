@@ -10,6 +10,7 @@ var numDeviceRequested = 0;
 var numDeviceReceived = 0;
 var csvFile = [null];
 var traceData = [];
+var graph3d = null;
 $( document ).ready(function()
 {
     userID  = getRandomInt(4096);
@@ -36,6 +37,8 @@ $( document ).ready(function()
     {
         $('#stopDate').datetimepicker();
     } );
+    $('#plotViewButtons').hide();
+
 });
 function wsConnectC()
 {
@@ -158,6 +161,7 @@ function getDevName(plotDevice)
 }
 function putDevArchive(deviceData)
 {
+    $('#plotViewButtons').show();
     $('#timePlot').show();
     makeCsvFile(deviceData);
     var data = [];
@@ -189,7 +193,7 @@ function putDevArchive(deviceData)
     }
     var options = {
       width:  '100%',
-      height: '1000px',
+      height: '600px',
       style: 'surface',
       showPerspective: false,
       showGrid: true,
@@ -208,9 +212,9 @@ function putDevArchive(deviceData)
     // create a graph3d
     var container = document.getElementById('timePlot');
 
-    var graph3d = new vis.Graph3d(container, oodataArray, options);
-    var horzAngle = 315.0 * 3.1415927 / 180.0;
-    var vertAngle = 45.0 * 3.1415927 / 180.0;
+    graph3d = new vis.Graph3d(container, oodataArray, options);
+    var horzAngle = 0 * 3.1415927 / 180.0;
+    var vertAngle = 90 * 3.1415927 / 180.0;
     graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});
     $('#plotSetupTable').show();
 
@@ -218,7 +222,6 @@ function putDevArchive(deviceData)
 }
 makeCsvFile = function (deviceData)
 {
-    console.log(deviceData);
     var dataString = '';
 
     dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\n';
@@ -288,4 +291,11 @@ function getArchiveData()
             ws.send(JSON.stringify(newMsg));
         }
     }
+}
+function changePlotView(horzAngleDeg, vertAngleDeg)
+{
+  var horzAngle = horzAngleDeg * 3.1415927 / 180.0;
+  var vertAngle = vertAngleDeg * 3.1415927 / 180.0;
+  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});
+
 }
