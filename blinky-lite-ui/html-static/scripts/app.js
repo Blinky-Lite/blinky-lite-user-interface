@@ -158,6 +158,7 @@ function getDevName(plotDevice)
 }
 function putDevArchive(deviceData)
 {
+    $('#timePlot').show();
     makeCsvFile(deviceData);
     var data = [];
     var maxPtsToPlot = Number($( '#maxPtsToPlot').val());
@@ -168,36 +169,67 @@ function putDevArchive(deviceData)
         npts = maxPtsToPlot;
         step = deviceData.payload.length / maxPtsToPlot;
     }
-    var z_data = [];
+    var oodataArray = [];
+    var nxMax = deviceData.payload[0].value[0].length;
     for (var ii = 0; ii < npts; ++ii)
     {
-      z_data[ii] = deviceData.payload[Math.round(ii * step)].value[1];
+      var ipt = Math.round(ii * step);
+      var yvalue = Math.round((deviceData.payload[ipt].time - deviceData.payload[0].time)/3600) / 1000;
+      for (var ix = 0; ix < nxMax; ++ix)
+      {
+        var zvalue = deviceData.payload[ipt].value[1][ix];
+        oodataArray[ii * nxMax + ix] =
+        {
+          'x': deviceData.payload[ipt].value[0][ix],
+          'y': yvalue,
+          'z': zvalue,
+          'style': zvalue
+        };
+      }
     }
-    var data = [{
-               z: z_data,
-               type: 'surface'
-            }];
-
-    var layout = {
-      title: 'testy',
-      autosize: true,
+    var options = {
+      width:  '100%',
+      height: '1000px',
+      style: 'surface',
+      showPerspective: false,
+      showGrid: true,
+      showShadow: false,
+      keepAspectRatio: false,
+      verticalRatio: 1.0,
+      showZAxis: true,
+      yCenter: '50%',
+      xLabel: 'x',
+      yLabel: 'Time (hr)',
+      zLabel: 'y',
+      tooltip: true,
+      axisColor: '#ffffff'
     };
-    Plotly.newPlot('timePlot', data, layout);
+
+    // create a graph3d
+    var container = document.getElementById('timePlot');
+
+    var graph3d = new vis.Graph3d(container, oodataArray, options);
+    var horzAngle = 315.0 * 3.1415927 / 180.0;
+    var vertAngle = 45.0 * 3.1415927 / 180.0;
+    graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});
+    $('#plotSetupTable').show();
+
     ++numDeviceReceived;
 }
 makeCsvFile = function (deviceData)
 {
+    console.log(deviceData);
     var dataString = '';
 
     dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\n';
     dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\n';
     dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\n';
-    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\n';
+    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\n 0,x';
+    for (var ipt = 0; ipt < deviceData.payload[0].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[0].value[0][ipt];
+    dataString = dataString + '\n';
     for (var ii = 0; ii < deviceData.payload.length; ++ii)
     {
-        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',x';
-        for (var ipt = 0; ipt < deviceData.payload[ii].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[0][ipt];
-        dataString = dataString + '\n ,y';
+        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',y';
         for (var ipt = 0; ipt < deviceData.payload[ii].value[1].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[1][ipt];
         dataString = dataString + '\n';
     }
@@ -234,6 +266,7 @@ function getArchiveData()
     var startDate = new Date($( "#startDate" ).val());
     var stopDate = new Date($( "#stopDate" ).val());
     $('#plotSetupTable').hide();
+    $('#timePlot').hide();
     for (var idev = 0; idev < numPlotDevices; ++idev)
     {
 
