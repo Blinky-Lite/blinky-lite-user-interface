@@ -193,7 +193,7 @@ function putDevArchive(deviceData)
     }
     var options = {
       width:  '100%',
-      height: '600px',
+      height: '800px',
       style: 'surface',
       showPerspective: false,
       showGrid: true,
