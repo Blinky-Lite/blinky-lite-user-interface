@@ -2,7 +2,7 @@
     {
         "id": "a7b9d689.b8a5e8",
         "type": "tab",
-        "label": "vectorDeviceArchivePlotter",
+        "label": "vectorDevicePlotter",
         "disabled": false,
         "info": ""
     },
@@ -143,7 +143,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Vector Archive Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui-timepicker-addon.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Vector Plotter</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.systemSelect}}}\n    {{{payload.plotSetup}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
         "x": 710,
         "y": 40,
@@ -234,9 +234,7 @@
             [
                 "27f42edd.fab892"
             ],
-            [
-                "71f88bbe.d01444"
-            ]
+            []
         ]
     },
     {
@@ -315,139 +313,7 @@
             [
                 "fa44db0f.a97ee8"
             ],
-            [
-                "9ed224c1.dd9228"
-            ]
-        ]
-    },
-    {
-        "id": "b24507d5.499a58",
-        "type": "mongodb in",
-        "z": "a7b9d689.b8a5e8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "Find in archiver",
-        "collection": "archiver",
-        "operation": "find",
-        "x": 960,
-        "y": 360,
-        "wires": [
-            [
-                "d2bf69c9.2bad58"
-            ]
-        ]
-    },
-    {
-        "id": "71f88bbe.d01444",
-        "type": "function",
-        "z": "a7b9d689.b8a5e8",
-        "name": "Get device_id for Archive",
-        "func": "var newMsg = \n{\n    topic           : msg.payload.topic,\n    userID          : msg.payload.userID,\n    plotDevice      : msg.payload.plotDevice,\n    payload         : msg.payload.payload,\n    startTime       : msg.payload.startTime,\n    stopTime        : msg.payload.stopTime,\n    projection      : {}\n};\nnewMsg.projection['status'] = 1;\nnewMsg.projection['_id'] = 1;\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 550,
-        "y": 200,
-        "wires": [
-            [
-                "6e4a6efd.c2022"
-            ]
-        ]
-    },
-    {
-        "id": "9ed224c1.dd9228",
-        "type": "function",
-        "z": "a7b9d689.b8a5e8",
-        "name": "find in archiver",
-        "func": "var newMsg = \n{\n    topic           : msg.topic,\n    userID          : msg.userID,\n    plotDevice      : msg.plotDevice,\n    payload         : \n    {\n        time    :   {'$gt': msg.startTime, '$lt': msg.stopTime},\n        device_id   :   msg.payload[0]._id\n    },\n    startTime       : msg.startTime,\n    stopTime        : msg.stopTime,\n};\n\nreturn newMsg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 780,
-        "y": 360,
-        "wires": [
-            [
-                "b24507d5.499a58"
-            ]
-        ]
-    },
-    {
-        "id": "d2bf69c9.2bad58",
-        "type": "function",
-        "z": "a7b9d689.b8a5e8",
-        "name": "putDevArchive",
-        "func": "var data = [];\nvar npts = msg.payload.length;\nvar step = 1;\nfor (var ii = 0; ii < npts; ++ii)\n{\n    var ipt = Math.round(ii * step);\n    data[ii] = \n    {\n        value   : msg.payload[ipt].value, \n        time    : msg.payload[ipt].time\n    }\n}\nreturn {\n    topic:'putDevArchive',\n    payload:{\n        topic           : 'putDevArchive',\n        payload         : data,\n        userID          : msg.userID,\n        plotDevice      : msg.plotDevice\n\n    }\n};\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1160,
-        "y": 360,
-        "wires": [
-            [
-                "aa9750ce.f38ed"
-            ]
-        ]
-    },
-    {
-        "id": "b1f29722.e81d28",
-        "type": "function",
-        "z": "a7b9d689.b8a5e8",
-        "name": "Test Find device",
-        "func": "var newMsg = \n{\n    topic           : 'test',\n    userID          : 1234,\n    plotDevice      : 1,\n    payload         : \n    {\n        sys01   : \"R3\",\n        sys02   : \"rfroom\",\n        sys03   : \"02\",\n        sys04   : \"diag\",\n        device  : \"oo\",\n        attr    : \"phaseShift\",\n        prop    : \"reading\",\n    },\n/*\n    projection      : \n    {\n        value           :   1,\n        time            :   1,\n        type            :   1,\n        archive_period  :   1,\n        status          :   1,\n        _id             :   0\n    }\n*/\n};\nreturn newMsg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 400,
-        "y": 460,
-        "wires": [
-            [
-                "51a62b7b.5e44e4"
-            ]
-        ]
-    },
-    {
-        "id": "51a62b7b.5e44e4",
-        "type": "mongodb in",
-        "z": "a7b9d689.b8a5e8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "Find in device db",
-        "collection": "devices",
-        "operation": "find",
-        "x": 610,
-        "y": 460,
-        "wires": [
-            [
-                "80a4b780.ff5198"
-            ]
-        ]
-    },
-    {
-        "id": "80a4b780.ff5198",
-        "type": "debug",
-        "z": "a7b9d689.b8a5e8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "x": 770,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "d6c7248e.e671c8",
-        "type": "inject",
-        "z": "a7b9d689.b8a5e8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 220,
-        "y": 460,
-        "wires": [
-            [
-                "b1f29722.e81d28"
-            ]
+            []
         ]
     },
     {
@@ -478,7 +344,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Vector Archive Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
+        "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Vector Plotter</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
         "output": "str",
         "x": 240,
         "y": 40,
@@ -497,7 +363,7 @@
         "fieldType": "msg",
         "format": "html",
         "syntax": "mustache",
-        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Max Plot Pts</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Start</td>\n                    <td width=20% align=\"center\" class=\"tableHeading\">Stop</td>\n                    <td width=10% align=\"center\"></td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"maxPtsToPlot\" type=\"text\" value=\"200\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"startDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"stopDate\" type=\"text\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getArchiveData()\">Get Data</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotTable'>\n                <tr valign=\"top\">\n                    <td width='5%'>\n                        <table id='plotViewButtons'>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"changePlotView(315,45)\">Birds Eye</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"overviewButton\" type=\"button\" onclick=\"changePlotView(0,90)\" >Overview</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"xviewButton\"    type=\"button\" onclick=\"changePlotView(0,0)\"  >X View</button>\n                                </td>\n                            </tr>\n                        </table>\n                    </td>\n                    <td width='95%' >\n                        <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n</div>\n",
+        "template": "<div id='plotSetup'>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotSetupTable'>\n                <tr>\n                    <td width=10% align=\"center\" class=\"tableHeading\">Number of Slices</td>\n                    <td width=10% align=\"center\"></td>\n                </tr>\n                <tr>\n                    <td align=\"center\">\n                        <input class=\"form-control\" id=\"numSlices\" type=\"text\" value=\"200\"/>\n                    </td>\n                    <td align=\"center\">\n                        <button width=100% class=\"btn jumbotron-button\" id=\"getDataButton\" type=\"button\" onclick=\"getData()\">Start Plot</button>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n    <div class='row'>\n        <div class='col-md-12'>\n            <table id='plotTable'>\n                <tr valign=\"top\">\n                    <td width='5%'>\n                        <table id='plotViewButtons'>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"birdsEyeButton\" type=\"button\" onclick=\"changePlotView(315,45)\">Birds Eye</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"overviewButton\" type=\"button\" onclick=\"changePlotView(0,90)\" >Overview</button>\n                                </td>\n                            </tr>\n                            <tr>\n                                <td>\n                                    <button class=\"btn jumbotron-button btn-block\" id=\"xviewButton\"    type=\"button\" onclick=\"changePlotView(0,0)\"  >X View</button>\n                                </td>\n                            </tr>\n                        </table>\n                    </td>\n                    <td width='95%' >\n                        <div id=\"timePlot\" width=\"100%\" class=\"plot\"></div>\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n</div>\n",
         "output": "str",
         "x": 560,
         "y": 40,
@@ -506,34 +372,5 @@
                 "bb0d6c04.0770f"
             ]
         ]
-    },
-    {
-        "id": "941e8858.e22318",
-        "type": "mongodb out",
-        "z": "a7b9d689.b8a5e8",
-        "mongodb": "a77ab212.bfa86",
-        "name": "Remove",
-        "collection": "devices",
-        "payonly": false,
-        "upsert": false,
-        "multi": false,
-        "operation": "delete",
-        "x": 580,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "f5d2a87e.b6ea58",
-        "type": "debug",
-        "z": "a7b9d689.b8a5e8",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 950,
-        "y": 260,
-        "wires": []
     }
 ]
