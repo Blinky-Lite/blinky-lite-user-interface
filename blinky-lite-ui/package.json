@@ -1,5 +1,5 @@
 {
-  "name": "deviceViewer-ui",
+  "name": "blinky-lite-user-interface",
   "version": "1.0.0",
   "description": "",
   "main": "node_modules/node-red/red.js -s ./settings.js -u ./",
@@ -21,7 +21,6 @@
   "homepage": "",
   "dependencies": {
     "node-red": "^0.19.5",
-    "node-red-dashboard": "^2.13.0",
-    "node-red-node-mongodb": "0.0.14"
+    "node-red-dashboard": "^2.13.2"
   }
 }

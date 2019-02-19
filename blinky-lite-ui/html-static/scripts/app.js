@@ -1,44 +1,11 @@
 var ws;
 var retries = 0;
 var userID = -1;
-var sysSelect = [];
-var sysName = ['sys01','sys02','sys03','sys04','device','attr','prop'];
-var numPlotDevices = 1;
-var validDevice = [];
-var numSys = sysName.length;
-var numDeviceRequested = 0;
-var numDeviceReceived = 0;
-var csvFile = [null];
-var traceData = [];
-var graph3d = null;
 $( document ).ready(function()
 {
     userID  = getRandomInt(4096);
+    $('#button2').hide();
     wsConnectC();
-    for (var idev = 0; idev < numPlotDevices; ++idev)
-    {
-        sysSelect[idev] = [];
-        for (var isys = 0; isys < numSys; ++isys)
-        {
-            sysSelect[idev][isys] = document.getElementById('sysSelect_' + idev.toString() + '_'+ isys.toString());
-        }
-        validDevice[idev] = false;
-    }
-    var now = new Date();
-    console.log(now.toLocaleString('en-SE'));
-    var then = new Date(now.getTime() - 3600 * 24 * 1000);
-    $( "#startDate" ).val(then.toLocaleString());
-    $( "#stopDate" ).val(now.toLocaleString());
-    $( function()
-    {
-        $('#startDate').datetimepicker();
-    } );
-    $( function()
-    {
-        $('#stopDate').datetimepicker();
-    } );
-    $('#plotViewButtons').hide();
-
 });
 function wsConnectC()
 {
@@ -53,11 +20,11 @@ function wsConnectC()
         {
             switch(msg.topic)
             {
-                case 'loadSystem':
-                    loadSystem(msg);
+                case 'message1':
+                    message1(msg);
                     break;
-                case 'putDevArchive':
-                    putDevArchive(msg);
+                case 'message2':
+                    message2(msg);
                     break;
                 default:
                 // code block
@@ -68,18 +35,15 @@ function wsConnectC()
     ws.onopen = function()
     {
         console.log("Websocket connected");
-        for (var idev = 0; idev < numPlotDevices; ++idev)
+        ws.send(JSON.stringify(
         {
-            ws.send(JSON.stringify(
+            topic       : 'hello',
+            payload     :
             {
-                topic       : 'getDevSystem',
-                system      : sysName[0],
-                payload     : {},
-                'userID'    : userID,
-                plotDevice      : idev,
-                sysSelectIndex  : 0,
-            }));
-        }
+              data : [1,2,3],
+            },
+            'userID'    : userID,
+        }));
     };
     ws.onclose = function()
     {
@@ -89,213 +53,31 @@ function getRandomInt(max)
 {
   return Math.floor(Math.random() * Math.floor(max));
 }
-function loadSystem(systemData)
+function message1(msg)
 {
-    clearDownStreamColumns(systemData.plotDevice, systemData.sysSelectIndex);
-    for (var ii = 0; ii < systemData.payload.length; ++ii)
-    {
-        opt = document.createElement('option');
-        opt.value = systemData.payload[ii];
-        opt.innerHTML = systemData.payload[ii];
-        sysSelect[systemData.plotDevice][systemData.sysSelectIndex].appendChild(opt);
-    }
+  console.log(msg);
+  $('#button1').hide();
+  $('#button2').show();
 }
-function clearDownStreamColumns(plotDevice, sysSelectIndex)
+function message2(msg)
 {
-    for (var isys = sysSelectIndex; isys < numSys; ++isys)
-    {
-        while (sysSelect[plotDevice][isys].firstChild)
-        {
-            sysSelect[plotDevice][isys].removeChild(sysSelect[plotDevice][isys].firstChild);
-        }
-    }
-    var opt = document.createElement('option');
-    opt.value = 'notSelected';
-    opt.innerHTML = '';
-    sysSelect[plotDevice][sysSelectIndex].appendChild(opt);
-    $('#csv'+ plotDevice.toString()).removeAttr("href");
-    $('#csv'+ plotDevice.toString()).css('color', 'white');
-    $('#csv'+ plotDevice.toString()).css('text-decoration', 'none');
-    $('#csv'+ plotDevice.toString()).css('font-weight', 'bold');
-    validDevice[plotDevice] = false;
+  console.log(msg);
+  $('#button1').show();
+  $('#button2').hide();
 }
-function sysSelected(plotDevice, sysSelectIndex)
+function buttonPushed(button)
 {
-    if (sysSelect[plotDevice][sysSelectIndex].value == 'notSelected') return;
-    if(sysSelect[plotDevice][sysSelectIndex].firstChild.value == 'notSelected')
-    {
-        sysSelect[plotDevice][sysSelectIndex].removeChild(sysSelect[plotDevice][sysSelectIndex].firstChild);
-    }
-    if (sysSelectIndex < (numSys - 1))
-    {
-        var newMsg =
-            {
-                topic           : 'getDevSystem',
-                system          : sysName[sysSelectIndex + 1],
-                payload         : {},
-                userID          : userID,
-                plotDevice      : plotDevice,
-                sysSelectIndex  : sysSelectIndex + 1
-            };
-        for (var isys = 0; isys <= sysSelectIndex; ++isys)
-        {
-            newMsg.payload[sysName[isys]] = sysSelect[plotDevice][isys].value;
-        }
-        ws.send(JSON.stringify(newMsg));
-    }
-    else
-    {
-        validDevice[plotDevice] = true;
-    }
-
-}
-function getDevName(plotDevice)
-{
-    if (!validDevice[plotDevice]) return;
-    var devName = sysSelect[plotDevice][0].value;
-    for (var isys = 1; isys < numSys; ++isys)
-    {
-        devName = devName + '-' + sysSelect[plotDevice][isys].value;
-    }
-    return devName;
-}
-function putDevArchive(deviceData)
-{
-    $('#plotViewButtons').show();
-    $('#timePlot').show();
-    makeCsvFile(deviceData);
-    var data = [];
-    var maxPtsToPlot = Number($( '#maxPtsToPlot').val());
-    var npts = deviceData.payload.length;
-    var step = 1;
-    if (deviceData.payload.length > maxPtsToPlot)
-    {
-        npts = maxPtsToPlot;
-        step = deviceData.payload.length / maxPtsToPlot;
-    }
-    var oodataArray = [];
-    var nxMax = deviceData.payload[0].value[0].length;
-    for (var ii = 0; ii < npts; ++ii)
-    {
-      var ipt = Math.round(ii * step);
-      var yvalue = Math.round((deviceData.payload[ipt].time - deviceData.payload[0].time)/3600) / 1000;
-      for (var ix = 0; ix < nxMax; ++ix)
+  var topic = 'message1';
+  var payload = 'payload1';
+  if (button == 2) topic = 'message2';
+  if (button == 2) payload = 'payload2';
+  ws.send(JSON.stringify(
+  {
+      topic       : topic,
+      payload     :
       {
-        var zvalue = deviceData.payload[ipt].value[1][ix];
-        oodataArray[ii * nxMax + ix] =
-        {
-          'x': deviceData.payload[ipt].value[0][ix],
-          'y': yvalue,
-          'z': zvalue,
-          'style': zvalue
-        };
-      }
-    }
-    var options = {
-      width:  '100%',
-      height: '800px',
-      style: 'surface',
-      showPerspective: false,
-      showGrid: true,
-      showShadow: false,
-      keepAspectRatio: false,
-      verticalRatio: 1.0,
-      showZAxis: true,
-      yCenter: '50%',
-      xLabel: 'x',
-      yLabel: 'Time (hr)',
-      zLabel: 'y',
-      tooltip: true,
-      axisColor: '#ffffff'
-    };
-
-    // create a graph3d
-    var container = document.getElementById('timePlot');
-
-    graph3d = new vis.Graph3d(container, oodataArray, options);
-    var horzAngle = 0 * 3.1415927 / 180.0;
-    var vertAngle = 90 * 3.1415927 / 180.0;
-    graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});
-    $('#plotSetupTable').show();
-
-    ++numDeviceReceived;
-}
-makeCsvFile = function (deviceData)
-{
-    var dataString = '';
-
-    dataString = dataString + 'Device,' + getDevName(deviceData.plotDevice) + '\n';
-    dataString = dataString + 'StartDate,' + new Date(deviceData.payload[0].time).toISOString() + '\n';
-    dataString = dataString + 'StartDate (mS),' + deviceData.payload[0].time.toString() + '\n';
-    dataString = dataString + 'Time (sec),' + sysSelect[deviceData.plotDevice][4].value + '-' + sysSelect[deviceData.plotDevice][5].value + '\n 0,x';
-    for (var ipt = 0; ipt < deviceData.payload[0].value[0].length; ++ipt) dataString = dataString + ',' + deviceData.payload[0].value[0][ipt];
-    dataString = dataString + '\n';
-    for (var ii = 0; ii < deviceData.payload.length; ++ii)
-    {
-        dataString = dataString + ((deviceData.payload[ii].time - deviceData.payload[0].time)/1000).toString() + ',y';
-        for (var ipt = 0; ipt < deviceData.payload[ii].value[1].length; ++ipt) dataString = dataString + ',' + deviceData.payload[ii].value[1][ipt];
-        dataString = dataString + '\n';
-    }
-    var data = new Blob([dataString], {type: 'text/plain'});
-
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (csvFile[deviceData.plotDevice] !== null) {
-      window.URL.revokeObjectURL(csvFile[deviceData.plotDevice]);
-    }
-
-    csvFile[deviceData.plotDevice] = window.URL.createObjectURL(data);
-    // returns a URL you can use as a href
-    $('#csv'+ deviceData.plotDevice.toString()).css('color', 'blue');
-    $('#csv'+ deviceData.plotDevice.toString()).css('text-decoration', 'underline');
-    $('#csv'+ deviceData.plotDevice.toString()).css('font-weight', 'bold');
-    $('#csv'+ deviceData.plotDevice.toString()).attr("href", csvFile[deviceData.plotDevice]);
-    $('#csv'+ deviceData.plotDevice.toString()).attr("download", getDevName(deviceData.plotDevice) + '.csv');
-
-}
-function getArchiveData()
-{
-    numDeviceRequested = 0;
-    for (var idev = 0; idev < numPlotDevices; ++idev)
-    {
-        if (validDevice[idev])
-        {
-            ++numDeviceRequested;
-        }
-    };
-    if (numDeviceRequested < 1) return;
-
-    numDeviceReceived = 0;
-    var startDate = new Date($( "#startDate" ).val());
-    var stopDate = new Date($( "#stopDate" ).val());
-    $('#plotSetupTable').hide();
-    $('#timePlot').hide();
-    for (var idev = 0; idev < numPlotDevices; ++idev)
-    {
-
-        if (validDevice[idev])
-        {
-            var newMsg =
-                {
-                    topic           :   'getDevArchive',
-                    payload         :   {},
-                    userID          :   userID,
-                    plotDevice      :   idev,
-                    startTime       :   startDate.getTime(),
-                    stopTime        :   stopDate.getTime(),
-                };
-            for (var isys = 0; isys < numSys; ++isys)
-            {
-                newMsg.payload[sysName[isys]] = sysSelect[idev][isys].value;
-            }
-            ws.send(JSON.stringify(newMsg));
-        }
-    }
-}
-function changePlotView(horzAngleDeg, vertAngleDeg)
-{
-  var horzAngle = horzAngleDeg * 3.1415927 / 180.0;
-  var vertAngle = vertAngleDeg * 3.1415927 / 180.0;
-  graph3d.setCameraPosition({'horizontal': horzAngle, 'vertical': vertAngle, 'distance': 2.0});
-
+        data : payload,
+      },
+      'userID'    : userID,
+  }));
 }
