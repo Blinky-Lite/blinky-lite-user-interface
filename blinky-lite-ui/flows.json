@@ -121,7 +121,7 @@
         "y": 40,
         "wires": [
             [
-                "76ead788.0e2c98"
+                "d4a2e8ce.36b218"
             ]
         ]
     },
@@ -134,9 +134,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Blinky Lite UserInterface</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.body}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <!-- <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"> -->\n    <link rel=\"icon\" href=\"/img/favicon.ico?v=3\" type=\"image/x-icon\">\n    <title>Blinky Lite UserInterface</title>\n    <link rel=\"stylesheet\" href=\"/css/bootstrap.css\">\n    <link rel=\"stylesheet\" href=\"/css/fontAwesome.css\">\n    <link rel=\"stylesheet\" href=\"/jquery/jquery-ui.css\">\n    <script src=\"/jquery/jquery.js\"></script>\n    <script src=\"/jquery/jquery-ui.js\"></script>\n    <script src=\"/jquery/jquery-ui-timepicker-addon.js\"></script>\n    <script src=\"/scripts/plotly-latest.min.js\"></script>\n    <script src=\"/scripts/visDist/vis.js\"></script>\n<!--\n    <link rel=\"stylesheet\" href=\"/css/app.css\">\n    <script src=\"/scripts/app.js\"></script>\n-->\n    <style>{{{payload.css}}}</style>\n    <script>{{{payload.javascript}}}</script>\n  </head>\n  <body>\n    {{{payload.navBar}}}\n    {{{payload.body}}}\n    <script src=\"/scripts/popper.js\"></script>\n    <script src=\"/scripts/bootstrap.js\"></script>\n  </body>\n</html>",
         "output": "str",
-        "x": 470,
+        "x": 750,
         "y": 40,
         "wires": [
             [
@@ -151,7 +151,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 590,
+        "x": 870,
         "y": 40,
         "wires": []
     },
@@ -208,7 +208,7 @@
         "syntax": "mustache",
         "template": "<div width=\"100%\">\n    <div class='row'>\n        <div class='col-md-6' align='center'>\n            <button class=\"btn jumbotron-button\" id=\"button1\" type=\"button\" onclick=\"buttonPushed(1)\">Button 1</button>\n        </div>\n        <div class='col-md-6' align='center'>\n            <button class=\"btn jumbotron-button\" id=\"button2\" type=\"button\" onclick=\"buttonPushed(2)\">Button 2</button>\n        </div>\n    </div>\n</div>\n",
         "output": "str",
-        "x": 350,
+        "x": 630,
         "y": 40,
         "wires": [
             [
@@ -227,7 +227,7 @@
         "syntax": "mustache",
         "template": "<div class=\"jumbotron\" width=\"100%\">\n  <div class=\"row\">\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-8\" style=\"text-align: center\">\n      <h1 class=\"display-5 jumbotron-title\">Blinky Lite User Interface</h1>\n    </div>\n    <div class=\"col-md-2\" style=\"text-align: right\"><img src=\"/img/BlinkyLogo.gif\" height=\"50px\"/></div>\n  </div>\n</div>\n",
         "output": "str",
-        "x": 220,
+        "x": 500,
         "y": 40,
         "wires": [
             [
@@ -287,6 +287,44 @@
             ],
             [
                 "ceaf9fa6.04765"
+            ]
+        ]
+    },
+    {
+        "id": "d4a2e8ce.36b218",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "CSS",
+        "field": "payload.css",
+        "fieldType": "msg",
+        "format": "css",
+        "syntax": "mustache",
+        "template": ":root {\n  --container-background-color: #557a95;\n  --container-title-color: #fdc300;\n  --container-text-color: #ffffff;\n  --background-color: #7395ae;\n  --sub-container-background-color: #c6c2bb;\n  --sub-container-title-color: #016a71;\n  --sub-container-text-color: #000000;\n}\nbody {\n  background-color: var(--background-color);\n  padding-left:25px;\n  padding-right:25px;\n}\n\nimg {\n  object-fit: contain;\n}\n.jumbotron {\n  background-color: var(--container-background-color) !important;\n  color:var(--container-text-color);\n  padding-bottom: 10px;\n  padding-top: 10px;\n}\n.jumbotron-title\n{\n  color:var(--container-title-color);\n}\n.jumbotron-button\n{\n  color: var(--background-color);\n  background-color: var(--container-title-color);\n  font-weight: 900;\n}\n.tableHeading\n{\n  color:var(--container-title-color);\n  font-weight: 900;\n}\n.tableText\n{\n  color:var(--container-text-color);\n  font-weight: 900;\n}\n.custom-select\n{\n  color: var(--container-text-color);\n  background-color: var(--background-color);\n\n}\n.form-control\n{\n  text-align: center;\n}\n.checkbox-align\n{\n  vertical-align: middle;\n  text-align: center;\n}\n.csv-linked\n{\n    color: blue;\n}\n.csv-unlinked\n{\n    color: red;\n}\n",
+        "output": "str",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "58540fcb.f587b"
+            ]
+        ]
+    },
+    {
+        "id": "58540fcb.f587b",
+        "type": "template",
+        "z": "a7b9d689.b8a5e8",
+        "name": "JavaScript",
+        "field": "payload.javascript",
+        "fieldType": "msg",
+        "format": "javascript",
+        "syntax": "mustache",
+        "template": "var ws;\nvar retries = 0;\nvar userID = -1;\n$( document ).ready(function()\n{\n    userID  = getRandomInt(4096);\n    $('#button2').hide();\n    wsConnectC();\n});\nfunction wsConnectC()\n{\n    var uri = window.location.href.split('://');\n    var wslead = 'ws://';\n    if (uri[0] == 'https') wslead = 'wss://';\n    ws = new WebSocket(wslead + uri[1] + '/websocket');\n    ws.onmessage = function(event)\n    {\n        var msg = JSON.parse(event.data);\n        if (msg.userID == userID)\n        {\n            switch(msg.topic)\n            {\n                case 'message1':\n                    message1(msg);\n                    break;\n                case 'message2':\n                    message2(msg);\n                    break;\n                default:\n                // code block\n            }\n        }\n\n    };\n    ws.onopen = function()\n    {\n        console.log(\"Websocket connected\");\n        ws.send(JSON.stringify(\n        {\n            topic       : 'hello',\n            payload     :\n            {\n              data : [1,2,3],\n            },\n            'userID'    : userID,\n        }));\n    };\n    ws.onclose = function()\n    {\n    };\n}\nfunction getRandomInt(max)\n{\n  return Math.floor(Math.random() * Math.floor(max));\n}\nfunction message1(msg)\n{\n  console.log(msg);\n  $('#button1').hide();\n  $('#button2').show();\n}\nfunction message2(msg)\n{\n  console.log(msg);\n  $('#button1').show();\n  $('#button2').hide();\n}\nfunction buttonPushed(button)\n{\n  var topic = 'message1';\n  var payload = 'payload1';\n  if (button == 2) topic = 'message2';\n  if (button == 2) payload = 'payload2';\n  ws.send(JSON.stringify(\n  {\n      topic       : topic,\n      payload     :\n      {\n        data : payload,\n      },\n      'userID'    : userID,\n  }));\n}\n",
+        "output": "str",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "76ead788.0e2c98"
             ]
         ]
     }
